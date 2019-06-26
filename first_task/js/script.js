@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
             } else {
                 let div = document.createElement("div");
                 div.id = "result";
-                document.body.appendChild(div);
+                document.appendChild(div);
                 let Result = document.getElementById("result");
 
                 result1 = str1.toLowerCase().split("а").length - 1;

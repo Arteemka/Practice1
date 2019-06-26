@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <title>Film</title>
+</head>
+
+<body>
+    <ul class="menu">
+        <li class="limenu add">Добавить</li>
+        <li class="limenu delete">Удалить</li>
+        <li class="limenu clear all">Очистить все</li>
+        <li class="limenu sort">Сортировать
+            <ul class="nestedmenu">
+                <li class="linestedmenu name">По названию
+                    <ul class="ulnestedname">
+                        <li class="ullinestedname increase">По возрастанию</li>
+                        <li class="ullinestedname decrease">По убыванию</li>
+                    </ul>
+                </li>
+                <li class="linestedmenu time">По времени
+                    <ul class="ulnestedtime">
+                        <li class="ullinestedtime increase">По возрастанию</li>
+                        <li class="ullinestedtime decrease">По убыванию</li>
+                    </ul>
+                </li>
+                <li class="linestedmenu date">По дате
+                    <ul class="ulnesteddate">
+                        <li class="ullinesteddate increase">По возрастанию</li>
+                        <li class="ullinesteddate decrease">По убыванию</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="modal">
+        <div class="modal-add">
+            <span class="close">&times;</span>
+            <p class="p-add">Добавить</p>
+            <div class="div-film name">
+                <label class="label-film">Название фильма</label>
+                <input class="input-film" name="name" type="text" placeholder="Название фильма">
+            </div>
+            <div class="div-film duration">
+                <label class="label-film">Продолжительность</label>
+                <input class="input-film" name="time" type="text" placeholder="Продолжительность">
+            </div>
+            <div class="div-film release">
+                <label class="label-film">Дата выхода</label>
+                <input class="input-film date" name="date" type="text" placeholder="Дата выхода">
+            </div>
+            <button type="button" class="button-add">Добавить</button>
+        </div>
+    </div>
+    <table id="table">
+        <thead class="tr">
+
+            <tr class='num'>
+                <th class="table-name">
+                    Название Фильма
+                </th>
+                <th class="table-time">
+                    Время
+                </th>
+                <th class="table-date">
+                    Дата выхода
+                </th>
+                <th class="table-delete">
+                    Удалить
+                </th>
+                <th class="table-check">
+                    -
+                </th>
+            </tr>
+
+        </thead>
+        <tbody>
+        </tbody>
+
+    </table>
+
+
+    <div class="modal">
+        <div class="error-modal">
+            <p class="error">Упс... В вашей базе ничего нет!</p>
+        </div>
+    </div>
+    <div class="modal-delete">
+        <p class="p-delete">Удалится через : </p>
+        <div class="timer">5</div>
+        <button type="button" class="cancel">Отмена</button>
+    </div>
+    <div class="modal">
+        <div class="err-modal">
+            <p class="error">Упс... Вы ничего не выбрали!</p>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

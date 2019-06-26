@@ -4,9 +4,9 @@ let first = document.getElementById('first'),
 //first task
 const concatArguments = (...args) => {
     if (args.length == 0) {
-        console.log(args);
+        return console.log('');
     } else {
-        console.log(args.join(''));
+        return console.log(args.join(''));
     }
 };
 
@@ -18,14 +18,14 @@ first.addEventListener('click', () => {
 
 //second task
 const getNumberProperties = (obj) => {
-    let numberObject = {};
+    const numberObject = {};
 
-    for (var value in obj) {
+    for (let value in obj) {
         if (typeof obj[value] === 'number') {
             numberObject[value] = obj[value];
         }
     }
-    console.log(numberObject);
+    return console.log(numberObject);
 };
 const typicalObject = {
     a: 100,
