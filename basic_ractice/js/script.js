@@ -1,28 +1,24 @@
 window.addEventListener('DOMContentLoaded', function() {
-    let addButton = document.getElementsByClassName('limenu add')[0],
-        closeButton = document.getElementsByClassName('close')[0],
-        input = document.querySelectorAll('.input-film'),
-        addToStorage = document.getElementsByClassName('button-add')[0],
-        clearAllStorage = document.getElementsByClassName('limenu clear all')[0],
-        modalAdd = document.getElementsByClassName('modal')[0],
-        dontDatebase = document.getElementsByClassName('modal')[1],
-        dontChoose = document.getElementsByClassName('modal')[2],
-        tbody = document.getElementsByTagName('tbody')[0],
-        menuDelete = document.getElementsByClassName('limenu delete')[0],
-        onNameIncrease = document.getElementsByClassName('ullinestedname increase')[0],
-        onNameDecrease = document.getElementsByClassName('ullinestedname decrease')[0],
-        onTimeIncrease = document.getElementsByClassName('ullinestedtime increase')[0],
-        onTimeDecrease = document.getElementsByClassName('ullinestedtime decrease')[0],
-        onDateIncrease = document.getElementsByClassName('ullinesteddate increase')[0],
-        onDateDecrease = document.getElementsByClassName('ullinesteddate decrease')[0],
-        modalTimer = document.getElementsByClassName('modal-delete')[0],
-        masCheckbox = [],
-        listOfMovies = [];
+    const addButton = document.getElementsByClassName('limenu add')[0];
+    const closeButton = document.getElementsByClassName('close')[0];
+    const input = document.querySelectorAll('.input-film');
+    const addToStorage = document.getElementsByClassName('button-add')[0];
+    const clearAllStorage = document.getElementsByClassName('limenu clear all')[0];
+    const modalAdd = document.getElementsByClassName('modal')[0];
+    const dontDatebase = document.getElementsByClassName('modal')[1];
+    const dontChoose = document.getElementsByClassName('modal')[2];
+    const menuDelete = document.getElementsByClassName('limenu delete')[0];
+    const onNameIncrease = document.getElementsByClassName('ullinestedname increase')[0];
+    const onNameDecrease = document.getElementsByClassName('ullinestedname decrease')[0];
+    const onTimeIncrease = document.getElementsByClassName('ullinestedtime increase')[0];
+    const onTimeDecrease = document.getElementsByClassName('ullinestedtime decrease')[0];
+    const onDateIncrease = document.getElementsByClassName('ullinesteddate increase')[0];
+    const onDateDecrease = document.getElementsByClassName('ullinesteddate decrease')[0];
+    let getFilmsFromContainer = document.getElementsByClassName('films')[0];
+    let modalTimer = document.getElementsByClassName('modal-delete')[0];
+    let masCheckbox = [];
 
-
-
-
-
+    let listOfMovies = [];
 
     addButton.addEventListener('click', function() {
         modalAdd.style.display = 'block';
@@ -57,9 +53,9 @@ window.addEventListener('DOMContentLoaded', function() {
             });
         } else if (mas[i].name == 'date') {
             mas[i].addEventListener('keyup', function() {
-                var day;
-                var month;
-                var year;
+                let day;
+                let month;
+                let year;
                 day = parseFloat(mas[i].value.slice(0, 2));
                 month = parseFloat(mas[i].value.slice(3, 5));
                 year = parseFloat(mas[i].value.slice(6, 10));
@@ -99,14 +95,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
         let i = listOfMovies.length;
         listOfMovies[i] = infoAboutMovies;
-        out();
+        outputTableOnPage();
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-
-        location.reload();
     });
 
-    function out() {
-        location.reload();
+    function outputTableOnPage() {
         for (let key in listOfMovies) {
             outName = '';
             outTime = '';
@@ -115,128 +108,152 @@ window.addEventListener('DOMContentLoaded', function() {
             outTime += listOfMovies[key].time;
             outDate += listOfMovies[key].date;
         }
-        table(outName, outTime, outDate);
+        creatTableForPage(outName, outTime, outDate);
         clearInput();
 
     }
 
-    function table(outName, outTime, outDate) {
-        let createTableRow = document.createElement('TR'),
-            createTableColumOutName = document.createElement('TD'),
-            createTableColumOutTime = document.createElement('TD'),
-            createTableColumOutDate = document.createElement('TD'),
-            createTableDelete = document.createElement('TD'),
-            creatTableCheckBox = document.createElement('TD'),
-            createTableImg = document.createElement('IMG'),
-            createTableCheck = document.createElement('INPUT');
+    function creatTableForPage(outName, outTime, outDate) {
+        let createDivContainer = document.createElement('DIV');
+        let createTableColumOutName = document.createElement('DIV');
+        let createTableColumOutTime = document.createElement('DIV');
+        let createTableColumOutDate = document.createElement('DIV');
+        let createTableDelete = document.createElement('DIV');
+        let creatTableCheckBox = document.createElement('DIV');
+        let createTableImg = document.createElement('IMG');
+        let createTableCheck = document.createElement('INPUT');
+
+
 
         createTableCheck.type = 'checkbox';
         createTableImg.src = './img/delete.png';
         createTableImg.className = 'img';
 
-        createTableRow.className = 'num';
-        tbody.appendChild(createTableRow);
+        createDivContainer.className = 'container-2';
+        getFilmsFromContainer.appendChild(createDivContainer);
 
         createTableColumOutName.className = 'table-name';
-        createTableRow.appendChild(createTableColumOutName);
+        createDivContainer.appendChild(createTableColumOutName);
 
         createTableColumOutTime.className = 'table-time';
-        createTableRow.appendChild(createTableColumOutTime);
+        createDivContainer.appendChild(createTableColumOutTime);
 
         createTableColumOutDate.className = 'table-date';
-        createTableRow.appendChild(createTableColumOutDate);
+        createDivContainer.appendChild(createTableColumOutDate);
 
         createTableDelete.appendChild(createTableImg);
         createTableDelete.className = 'table-delete';
-        createTableRow.appendChild(createTableDelete);
+        createDivContainer.appendChild(createTableDelete);
 
+        creatTableCheckBox.className = 'table-check';
         creatTableCheckBox.appendChild(createTableCheck);
-        createTableRow.appendChild(creatTableCheckBox);
+        createDivContainer.appendChild(creatTableCheckBox);
 
         createTableColumOutName.textContent = outName;
-        createTableColumOutTime.textContent = outTime + ' мин';
+        createTableColumOutTime.textContent = `${outTime} мин`;
         createTableColumOutDate.textContent = outDate;
 
     }
+
 
     if (localStorage.getItem('Films') != undefined) {
 
         listOfMovies = JSON.parse(localStorage.getItem('Films'));
         for (let i = 0; i < listOfMovies.length; i++) {
-            let outName = listOfMovies[i].name;
-            let outTime = listOfMovies[i].time;
-            let outDate = listOfMovies[i].date;
-            table(outName, outTime, outDate);
-
+            const outName = listOfMovies[i].name;
+            const outTime = listOfMovies[i].time;
+            const outDate = listOfMovies[i].date;
+            creatTableForPage(outName, outTime, outDate);
         }
     }
 
-    function clearInput() {
+
+
+
+    let clearInput = () => {
         input.forEach(function(item) {
             item.value = '';
+            item.style.border = '.07142857rem solid #e0e0e0';
         });
-    }
+    };
 
-    let info = tbody.querySelectorAll('img');
 
-    tbody.addEventListener('click', function(e) {
+
+    getFilmsFromContainer.addEventListener('click', function(e) {
+        let info = getFilmsFromContainer.querySelectorAll('img');
         let target = e.target;
+        let lengthImg = info.length;
         if (target && target.classList.contains('img')) {
-            for (let i = 0; i < info.length; i++) {
+            for (let i = 0; i < lengthImg; i++) {
                 if (target == info[i]) {
                     listOfMovies.splice(i, 1);
+                    console.log(lengthImg);
+                    console.log(i);
                     localStorage.setItem('Films', JSON.stringify(listOfMovies));
-                    location.reload();
                     break;
                 }
+
             }
+
         }
+        target.parentNode.parentNode.remove();
     });
 
-    let checks = tbody.querySelectorAll("input[type=checkbox]");
 
-    tbody.addEventListener('click', function(e) {
-        let target = e.target,
-            index = [].indexOf.call(checks, target);
-        if (masCheckbox.indexOf(index) != index) {
+    let checks = getFilmsFromContainer.querySelectorAll("input[type=checkbox]");
+
+    getFilmsFromContainer.addEventListener('click', function(e) {
+        let target = e.target;
+        let index = [].indexOf.call(checks, target);
+
+        if (masCheckbox.indexOf(index) == -1) {
             masCheckbox.push(index);
         } else {
-            masCheckbox.splice(index, 1);
+            masCheckbox.splice(masCheckbox.indexOf(index), 1);
         }
+
     });
 
     menuDelete.addEventListener('click', function() {
 
-        let check = false;
 
-        function uniuqe(arr) {
-            var n = arr.length;
-            for (var i = 0; i < n; i++) {
-                if (arr[i - 1] === arr[i]) {
-                    return check = false;
-                } else {
-                    return check = true;
-                }
+        function uniuqeElement(arr) {
+            let count = 0;
+            for (i = 0; i < arr.length; i++) {
+                let temp = arr[i];
+
+                for (j = 0; j < arr.length; j++)
+                    if (temp == arr[j])
+                        count++;
+                if (count == 1)
+                    count = 0;
             }
         }
-        uniuqe(masCheckbox);
 
-        if (!check) {
+
+        masCheckbox.sort(function(one, two) {
+            return one - two;
+        });
+
+        if (masCheckbox.length == 0) {
             dontChoose.style.display = 'block';
         } else {
-            for (var i = masCheckbox.length - 1; i >= 0; i--) {
+            uniuqeElement(masCheckbox);
+            for (let i = masCheckbox.length - 1; i >= 0; i--) {
+
                 listOfMovies.splice(masCheckbox[i], 1);
             }
             localStorage.setItem('Films', JSON.stringify(listOfMovies));
-            location.reload();
+
         }
     });
 
 
+
     onNameIncrease.addEventListener('click', function() {
         listOfMovies.sort(function(one, two) {
-            let oneName = one.name.toLowerCase(),
-                twoName = two.name.toLowerCase();
+            let oneName = one.name.toLowerCase();
+            let twoName = two.name.toLowerCase();
             if (oneName < twoName)
                 return -1;
             if (oneName > twoName)
@@ -250,8 +267,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
     onNameDecrease.addEventListener('click', function() {
         listOfMovies.sort(function(one, two) {
-            let oneName = one.name.toLowerCase(),
-                twoName = two.name.toLowerCase();
+            let oneName = one.name.toLowerCase();
+            let twoName = two.name.toLowerCase();
             if (oneName > twoName)
                 return -1;
             if (oneName < twoName)
@@ -300,7 +317,7 @@ window.addEventListener('DOMContentLoaded', function() {
             let getItemDate = listOfMovies[i].date;
             let convertDate = new Date(getItemDate);
 
-            var resultDate = [
+            let resultDate = [
                 addLeadZero(convertDate.getDate()),
                 addLeadZero(convertDate.getMonth() + 1),
                 convertDate.getFullYear()
@@ -310,8 +327,8 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
         function addLeadZero(val) {
-            if (+val < 10) return '0' + val;
-            return val;
+            let result = (+val < 10) ? `0${val}` : val;
+            return result;
         };
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
@@ -336,7 +353,7 @@ window.addEventListener('DOMContentLoaded', function() {
             let getItemDate = listOfMovies[i].date;
             let convertDate = new Date(getItemDate);
 
-            var resultDate = [
+            let resultDate = [
                 addLeadZero(convertDate.getDate()),
                 addLeadZero(convertDate.getMonth() + 1),
                 convertDate.getFullYear()
@@ -346,17 +363,15 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
         function addLeadZero(val) {
-            if (+val < 10) return '0' + val;
-            return val;
+            let result = (+val < 10) ? `0${val}` : val;
+            return result;
         };
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
         location.reload();
     });
 
-
     clearAllStorage.addEventListener('click', function() {
-
         if (listOfMovies.length == 0) {
             dontDatebase.style.display = 'block';
         } else {
@@ -368,23 +383,23 @@ window.addEventListener('DOMContentLoaded', function() {
             function action(btn) {
                 if (btn == 'block') {
                     timer = setInterval(function() {
-                        var cur = parseInt(counter.innerHTML);
+                        let cur = parseInt(counter.innerHTML);
                         if (cur == '0') {
                             localStorage.removeItem('Films');
-                            location.reload();
+                            tbody.textContent = '';
                         } else cur--;
                         counter.innerHTML = cur;
                     }, 1000);
                 }
             }
+
             cancel.addEventListener('click', function() {
                 clearInterval(timer);
+                counter.innerHTML = 5;
                 block = modalTimer.style.display = 'none';
             });
             action(block);
         }
-
-
     });
 
 

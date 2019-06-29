@@ -243,27 +243,65 @@ ul ul li.date:hover .ullinesteddate {
     cursor: pointer;
 }
 
-table {
-    position: absolute;
+.container-1 {
+    position: relative;
+    display: flex;
     margin-top: 100px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 14px;
-    background: #1b9e48;
     width: 790px;
+    margin-bottom: -15px;
     margin-left: 250px;
-    border-collapse: collapse;
-    display: block;
+    padding-top: 30px;
+    padding-bottom: 15px;
 }
 
-th {
+.container-2 {
+    display: flex;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    width: 790px;
+    margin-left: 250px;
+}
+
+.container-2 div {
+    font-weight: normal;
+    color: #fff;
+    border-bottom: 1px solid #1b9e48;
+    text-align: center;
+    background: #454545;
+    padding-top: 10px;
+}
+
+.container-1 div {
     position: relative;
     font-weight: normal;
     color: #fff;
     border-bottom: 2px solid #1b9e48;
-    padding-top: 15px;
-    padding-bottom: 15px;
     text-align: center;
     background: #454545;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.table-name {
+    flex: 4;
+}
+
+.table-time {
+    flex: 2;
+}
+
+.table-date {
+    flex: 3;
+}
+
+.table-delete {
+    flex: 1;
+}
+
+.table-check {
+    flex: 1;
 }
 
 td {
@@ -276,31 +314,9 @@ td {
     background: #454545;
 }
 
-.table-date {
-    width: 196px;
-}
-
-.table-delete {
-    width: 116px;
-    padding-bottom: 5px;
-    padding-top: 10px;
-}
-
-.table-name {
-    width: 266px;
-}
-
-.table-check {
-    width: 66px;
-}
-
-.table-time {
-    width: 136px;
-}
-
 img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     cursor: pointer;
 }
 
