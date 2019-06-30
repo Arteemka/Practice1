@@ -17,7 +17,6 @@ window.addEventListener('DOMContentLoaded', function() {
     let getFilmsFromContainer = document.getElementsByClassName('films')[0];
     let modalTimer = document.getElementsByClassName('modal-delete')[0];
     let masCheckbox = [];
-
     let listOfMovies = [];
 
     addButton.addEventListener('click', function() {
@@ -110,7 +109,6 @@ window.addEventListener('DOMContentLoaded', function() {
         }
         creatTableForPage(outName, outTime, outDate);
         clearInput();
-
     }
 
     function creatTableForPage(outName, outTime, outDate) {
@@ -122,7 +120,6 @@ window.addEventListener('DOMContentLoaded', function() {
         let creatTableCheckBox = document.createElement('DIV');
         let createTableImg = document.createElement('IMG');
         let createTableCheck = document.createElement('INPUT');
-
 
 
         createTableCheck.type = 'checkbox';
@@ -187,16 +184,15 @@ window.addEventListener('DOMContentLoaded', function() {
             for (let i = 0; i < lengthImg; i++) {
                 if (target == info[i]) {
                     listOfMovies.splice(i, 1);
-                    console.log(lengthImg);
-                    console.log(i);
                     localStorage.setItem('Films', JSON.stringify(listOfMovies));
+                    target.parentNode.parentNode.remove();
                     break;
                 }
 
             }
 
         }
-        target.parentNode.parentNode.remove();
+
     });
 
 
@@ -211,11 +207,15 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             masCheckbox.splice(masCheckbox.indexOf(index), 1);
         }
-
     });
 
     menuDelete.addEventListener('click', function() {
 
+        for (var i = 0; i < checks.length; i++) {
+            if (checks[i].type == 'checkbox' && checks[i].checked == true) {
+                checks[i].parentNode.parentNode.remove();
+            }
+        }
 
         function uniuqeElement(arr) {
             let count = 0;
@@ -230,7 +230,6 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-
         masCheckbox.sort(function(one, two) {
             return one - two;
         });
@@ -240,15 +239,28 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             uniuqeElement(masCheckbox);
             for (let i = masCheckbox.length - 1; i >= 0; i--) {
-
                 listOfMovies.splice(masCheckbox[i], 1);
             }
             localStorage.setItem('Films', JSON.stringify(listOfMovies));
-
         }
+
     });
+    let masName = [];
 
+    function sortFieldNameOnPage() {
+        let getAllFieldName = document.querySelectorAll('.container-2');
+        for (var i = 0; i < getAllFieldName.length; i++) {
+            masName.push(getAllFieldName[i]);
+        }
+    }
 
+    sortFieldNameOnPage();
+
+    function outputSortNameOnPage() {
+        for (var i = 0; i < masName.length; i++) {
+            getFilmsFromContainer.appendChild(masName[i]);
+        }
+    }
 
     onNameIncrease.addEventListener('click', function() {
         listOfMovies.sort(function(one, two) {
@@ -262,7 +274,15 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        location.reload();
+        masName.sort(function(one, two) {
+            if (one.innerHTML < two.innerHTML)
+                return -1;
+            if (one.innerHTML > two.innerHTML)
+                return 1;
+            return 0;
+        });
+
+        outputSortNameOnPage();
     });
 
     onNameDecrease.addEventListener('click', function() {
@@ -277,9 +297,36 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        location.reload();
+        masName.sort(function(one, two) {
+            if (one.innerHTML > two.innerHTML)
+                return -1;
+            if (one.innerHTML < two.innerHTML)
+                return 1;
+            return 0;
+        });
+
+        outputSortNameOnPage();
 
     });
+
+
+    let masTime = [];
+
+    function sortFieldTimeOnPage() {
+        let getAllFieldTime = document.querySelectorAll('.table-time');
+        for (var i = 1; i < getAllFieldTime.length; i++) {
+            masTime.push(getAllFieldTime[i]);
+        }
+    }
+
+    sortFieldTimeOnPage();
+
+    function outputSortTimeOnPage() {
+        for (let i = 0; i < masTime.length; i++) {
+            getFilmsFromContainer.appendChild(masTime[i].parentNode);
+        }
+    }
+
 
     onTimeIncrease.addEventListener('click', function() {
         listOfMovies.sort(function(one, two) {
@@ -287,7 +334,13 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        location.reload();
+        masTime.sort(function(one, two) {
+            oneTime = parseInt(one.innerHTML.split('', 1));
+            twoTime = parseInt(two.innerHTML.split('', 1));
+            return oneTime - twoTime;
+        });
+
+        outputSortTimeOnPage();
     });
 
     onTimeDecrease.addEventListener('click', function() {
@@ -296,8 +349,33 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        location.reload();
+        masTime.sort(function(one, two) {
+            oneTime = parseInt(one.innerHTML.split('', 1));
+            twoTime = parseInt(two.innerHTML.split('', 1));
+            return twoTime - oneTime;
+        });
+
+        outputSortTimeOnPage();
     });
+
+
+    let masDate = [];
+
+    function sortOnPage() {
+        let getAllFieldDate = document.querySelectorAll('.table-date');
+        for (let i = 1; i < getAllFieldDate.length; i++) {
+            masDate.push(getAllFieldDate[i]);
+        }
+    }
+
+    sortOnPage();
+
+
+    function outputSortDateOnPage() {
+        for (let i = 0; i < masDate.length; i++) {
+            getFilmsFromContainer.appendChild(masDate[i].parentNode);
+        }
+    }
 
     onDateIncrease.addEventListener('click', function() {
 
@@ -332,7 +410,15 @@ window.addEventListener('DOMContentLoaded', function() {
         };
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        location.reload();
+
+        masDate.sort(function(one, two) {
+            oneDate = new Date(one.innerHTML.split('.')[2], one.innerHTML.split('.')[1] - 1, one.innerHTML.split('.')[0]);
+            twoDate = new Date(two.innerHTML.split('.')[2], two.innerHTML.split('.')[1] - 1, two.innerHTML.split('.')[0]);
+            return new Date(oneDate) - new Date(twoDate)
+        });
+
+        outputSortDateOnPage();
+
     });
 
     onDateDecrease.addEventListener('click', function() {
@@ -368,7 +454,14 @@ window.addEventListener('DOMContentLoaded', function() {
         };
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        location.reload();
+
+        masDate.sort(function(one, two) {
+            oneDate = new Date(one.innerHTML.split('.')[2], one.innerHTML.split('.')[1] - 1, one.innerHTML.split('.')[0]);
+            twoDate = new Date(two.innerHTML.split('.')[2], two.innerHTML.split('.')[1] - 1, two.innerHTML.split('.')[0]);
+            return new Date(twoDate) - new Date(oneDate)
+        });
+
+        outputSortDateOnPage();
     });
 
     clearAllStorage.addEventListener('click', function() {
@@ -401,7 +494,4 @@ window.addEventListener('DOMContentLoaded', function() {
             action(block);
         }
     });
-
-
-
 });
