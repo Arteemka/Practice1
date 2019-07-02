@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const onTimeDecrease = document.getElementsByClassName('ullinestedtime decrease')[0];
     const onDateIncrease = document.getElementsByClassName('ullinesteddate increase')[0];
     const onDateDecrease = document.getElementsByClassName('ullinesteddate decrease')[0];
-    let getFilmsFromContainer = document.getElementsByClassName('films')[0];
+    let getFilmsFromContainer = document.getElementsByClassName('film-container')[0];
     let modalTimer = document.getElementsByClassName('modal-delete')[0];
     let masCheckbox = [];
     let listOfMovies = [];
@@ -74,28 +74,30 @@ window.addEventListener('DOMContentLoaded', function() {
         input.forEach(function(item) {
             if (item.value != '' && item.value != null) {
                 item.style.border = "1px solid #fff";
+
+                for (let i = 0; i < input.length; i++) {
+                    if (input[i].name == 'name') {
+                        let name = input[i].value;
+                        infoAboutMovies.name = name;
+                    } else if (input[i].name == 'time') {
+                        let time = +input[i].value;
+                        infoAboutMovies.time = time;
+                    } else if (input[i].name == 'date') {
+                        let date = input[i].value;
+                        infoAboutMovies.date = date;
+                    }
+                }
+
+                let i = listOfMovies.length;
+                listOfMovies[i] = infoAboutMovies;
+                outputTableOnPage();
+                localStorage.setItem('Films', JSON.stringify(listOfMovies));
             } else {
                 item.style.border = "1px solid red";
             }
         });
 
-        for (let i = 0; i < input.length; i++) {
-            if (input[i].name == 'name') {
-                let name = input[i].value;
-                infoAboutMovies.name = name;
-            } else if (input[i].name == 'time') {
-                let time = +input[i].value;
-                infoAboutMovies.time = time;
-            } else if (input[i].name == 'date') {
-                let date = input[i].value;
-                infoAboutMovies.date = date;
-            }
-        }
 
-        let i = listOfMovies.length;
-        listOfMovies[i] = infoAboutMovies;
-        outputTableOnPage();
-        localStorage.setItem('Films', JSON.stringify(listOfMovies));
     });
 
     function outputTableOnPage() {
@@ -464,7 +466,10 @@ window.addEventListener('DOMContentLoaded', function() {
         outputSortDateOnPage();
     });
 
+    // const numbersCopy = [...listOfMovies]
+
     clearAllStorage.addEventListener('click', function() {
+
         if (listOfMovies.length == 0) {
             dontDatebase.style.display = 'block';
         } else {
@@ -479,7 +484,10 @@ window.addEventListener('DOMContentLoaded', function() {
                         let cur = parseInt(counter.innerHTML);
                         if (cur == '0') {
                             localStorage.removeItem('Films');
-                            tbody.textContent = '';
+                            block = modalTimer.style.display = 'none';
+                            clearInterval(timer);
+                            getFilmsFromContainer.textContent = '';
+
                         } else cur--;
                         counter.innerHTML = cur;
                     }, 1000);
