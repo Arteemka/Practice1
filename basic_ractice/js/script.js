@@ -32,35 +32,32 @@ window.addEventListener('DOMContentLoaded', function() {
     });
 
     window.addEventListener('click', function(e) {
-        if (e.target == modalAdd) {
+        if (e.target === modalAdd) {
             modalAdd.style.display = 'none';
             clearInput();
-        } else if (e.target == dontDatebase) {
+        } else if (e.target === dontDatebase) {
             dontDatebase.style.display = 'none';
-        } else if (e.target == dontChoose) {
+        } else if (e.target === dontChoose) {
             dontChoose.style.display = 'none';
         }
 
     });
 
 
-    input.forEach(function(elem, i, mas) {
-        if (mas[i].name == 'name') {
+    input.forEach((elem, i, mas) => {
+        if (mas[i].name === 'name') {
             mas[i].addEventListener('keyup', function() {
                 mas[i].value = mas[i].value.replace(/[^0-9a-zA-zа-яА-ЯёЁ\s]/ig, '');
             });
-        } else if (mas[i].name == 'time') {
+        } else if (mas[i].name === 'time') {
             mas[i].addEventListener('keyup', function() {
                 mas[i].value = mas[i].value.replace(/[^0-9]/ig, '');
             });
-        } else if (mas[i].name == 'date') {
+        } else if (mas[i].name === 'date') {
             mas[i].addEventListener('keyup', function() {
-                let day;
-                let month;
-                let year;
-                day = parseFloat(mas[i].value.slice(0, 2));
-                month = parseFloat(mas[i].value.slice(3, 5));
-                year = parseFloat(mas[i].value.slice(6, 10));
+                const day = parseFloat(mas[i].value.slice(0, 2));
+                const month = parseFloat(mas[i].value.slice(3, 5));
+                const year = parseFloat(mas[i].value.slice(6, 10));
                 if (day >= 1 && day <= 31 && month >= 1 && month <= 12 &&
                     year >= 1000 && year <= 9999) {
                     mas[i].style.border = "1px solid #fff";
@@ -78,18 +75,18 @@ window.addEventListener('DOMContentLoaded', function() {
         let infoAboutMovies = {};
 
         input.forEach(function(item) {
-            if (item.value != '' && item.value != null) {
+            if (item.value !== '' && item.value !== null) {
 
                 item.style.border = "1px solid #fff";
 
                 for (let i = 0; i < input.length; i++) {
-                    if (input[i].name == 'name') {
+                    if (input[i].name === 'name') {
                         let name = input[i].value;
                         infoAboutMovies.name = name;
-                    } else if (input[i].name == 'time') {
+                    } else if (input[i].name === 'time') {
                         let time = +input[i].value;
                         infoAboutMovies.time = time;
-                    } else if (input[i].name == 'date') {
+                    } else if (input[i].name === 'date') {
                         let date = input[i].value;
                         infoAboutMovies.date = date;
                     }
@@ -97,9 +94,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 let i = listOfMovies.length;
                 listOfMovies[i] = infoAboutMovies;
-                outputTableOnPage();
                 localStorage.setItem('Films', JSON.stringify(listOfMovies));
-
+                outputTableOnPage();
             } else {
                 item.style.border = "1px solid red";
             }
@@ -124,14 +120,14 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
     function creatTableForPage(outName, outTime, outDate) {
-        let createDivContainer = document.createElement('DIV');
-        let createTableColumOutName = document.createElement('DIV');
-        let createTableColumOutTime = document.createElement('DIV');
-        let createTableColumOutDate = document.createElement('DIV');
-        let createTableDelete = document.createElement('DIV');
-        let creatTableCheckBox = document.createElement('DIV');
-        let createTableImg = document.createElement('IMG');
-        let createTableCheck = document.createElement('INPUT');
+        const createDivContainer = document.createElement('DIV');
+        const createTableColumOutName = document.createElement('DIV');
+        const createTableColumOutTime = document.createElement('DIV');
+        const createTableColumOutDate = document.createElement('DIV');
+        const createTableDelete = document.createElement('DIV');
+        const creatTableCheckBox = document.createElement('DIV');
+        const createTableImg = document.createElement('IMG');
+        const createTableCheck = document.createElement('INPUT');
 
 
         createTableCheck.type = 'checkbox';
@@ -165,7 +161,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    if (localStorage.getItem('Films') != undefined) {
+    if (localStorage.getItem('Films') !== null) {
         listOfMovies = JSON.parse(localStorage.getItem('Films'));
 
         for (let i = 0; i < listOfMovies.length; i++) {
@@ -179,8 +175,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
 
-    let clearInput = () => {
-        input.forEach(function(item) {
+    function clearInput() {
+        input.forEach((item) => {
             item.value = '';
             item.style.border = '.07142857rem solid #e0e0e0';
         });
@@ -189,13 +185,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
     getFilmsFromContainer.addEventListener('click', function(e) {
-        let info = getFilmsFromContainer.querySelectorAll('img');
-        let target = e.target;
-        let lengthImg = info.length;
+        const info = getFilmsFromContainer.querySelectorAll('img');
+        const target = e.target;
+        const lengthImg = info.length;
 
         if (target && target.classList.contains('img')) {
             for (let i = 0; i < lengthImg; i++) {
-                if (target == info[i]) {
+                if (target === info[i]) {
 
                     listOfMovies.splice(i, 1);
                     localStorage.setItem('Films', JSON.stringify(listOfMovies));
@@ -211,18 +207,18 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
     getFilmsFromContainer.addEventListener('click', function(e) {
-        let checks = document.querySelectorAll('input[type=checkbox]');
-        let target = e.target;
-        let index = [].indexOf.call(checks, target);
+        const checks = document.querySelectorAll('input[type=checkbox]');
+        const target = e.target;
+        const index = [].indexOf.call(checks, target);
 
-        if (masCheckbox.indexOf(index) == -1) {
+        if (masCheckbox.indexOf(index) === -1) {
             masCheckbox.push(index);
         } else {
             masCheckbox.splice(masCheckbox.indexOf(index), 1);
         }
 
 
-        let positiveArr = masCheckbox.filter(function(number) {
+        let positiveArr = masCheckbox.filter((number) => {
             return number >= 0;
         });
 
@@ -232,10 +228,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
     menuDelete.addEventListener('click', function() {
-        let checks = document.querySelectorAll('input[type=checkbox]');
+        const checks = document.querySelectorAll('input[type=checkbox]');
 
         for (let i = 0; i < checks.length; i++) {
-            if (checks[i].type == 'checkbox' && checks[i].checked == true) {
+            if (checks[i].type === 'checkbox' && checks[i].checked === true) {
                 checks[i].parentNode.parentNode.remove();
             }
         }
@@ -247,19 +243,19 @@ window.addEventListener('DOMContentLoaded', function() {
                 let temp = arr[i];
 
                 for (j = 0; j < arr.length; j++)
-                    if (temp == arr[j])
+                    if (temp === arr[j])
                         count++;
-                if (count == 1)
+                if (count === 1)
                     count = 0;
             }
         }
 
-        masCheckbox.sort(function(one, two) {
+        masCheckbox.sort((one, two) => {
             return one - two;
         });
 
 
-        if (masCheckbox.length == 0) {
+        if (masCheckbox.length === 0) {
             dontChoose.style.display = 'block';
         } else {
             uniuqeElement(masCheckbox);
@@ -269,21 +265,22 @@ window.addEventListener('DOMContentLoaded', function() {
             }
 
             localStorage.setItem('Films', JSON.stringify(listOfMovies));
+            masCheckbox = [];
         }
     });
 
     let masName = [];
 
     function sortFieldNameOnPage() {
-        let getAllFieldName = document.querySelectorAll('.table-name');
+        const getAllFieldName = document.querySelectorAll('.table-name');
 
-        for (var i = 1; i < getAllFieldName.length; i++) {
+        for (let i = 1; i < getAllFieldName.length; i++) {
             masName.push(getAllFieldName[i]);
         }
     }
 
     function outputSortNameOnPage() {
-        for (var i = 0; i < masName.length; i++) {
+        for (let i = 0; i < masName.length; i++) {
             getFilmsFromContainer.appendChild(masName[i].parentNode);
         }
     }
@@ -291,9 +288,9 @@ window.addEventListener('DOMContentLoaded', function() {
     onNameIncrease.addEventListener('click', function() {
         sortFieldNameOnPage();
 
-        listOfMovies.sort(function(one, two) {
-            let oneName = one.name.toLowerCase();
-            let twoName = two.name.toLowerCase();
+        listOfMovies.sort((one, two) => {
+            const oneName = one.name.toLowerCase();
+            const twoName = two.name.toLowerCase();
             if (oneName < twoName)
                 return -1;
             if (oneName > twoName)
@@ -302,7 +299,7 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        masName.sort(function(one, two) {
+        masName.sort((one, two) => {
             if (one.innerHTML < two.innerHTML)
                 return -1;
             if (one.innerHTML > two.innerHTML)
@@ -311,14 +308,15 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         outputSortNameOnPage();
+        masName = [];
     });
 
     onNameDecrease.addEventListener('click', function() {
         sortFieldNameOnPage();
 
-        listOfMovies.sort(function(one, two) {
-            let oneName = one.name.toLowerCase();
-            let twoName = two.name.toLowerCase();
+        listOfMovies.sort((one, two) => {
+            const oneName = one.name.toLowerCase();
+            const twoName = two.name.toLowerCase();
             if (oneName > twoName)
                 return -1;
             if (oneName < twoName)
@@ -327,7 +325,7 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        masName.sort(function(one, two) {
+        masName.sort((one, two) => {
             if (one.innerHTML > two.innerHTML)
                 return -1;
             if (one.innerHTML < two.innerHTML)
@@ -336,14 +334,15 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         outputSortNameOnPage();
+        masName = [];
     });
 
     let masTime = [];
 
     function sortFieldTimeOnPage() {
-        let getAllFieldTime = document.querySelectorAll('.table-time');
+        const getAllFieldTime = document.querySelectorAll('.table-time');
 
-        for (var i = 1; i < getAllFieldTime.length; i++) {
+        for (let i = 1; i < getAllFieldTime.length; i++) {
             masTime.push(getAllFieldTime[i]);
         }
     }
@@ -361,45 +360,47 @@ window.addEventListener('DOMContentLoaded', function() {
     onTimeIncrease.addEventListener('click', function() {
         sortFieldTimeOnPage();
 
-        listOfMovies.sort(function(one, two) {
+        listOfMovies.sort((one, two) => {
             return one.time - two.time;
         });
 
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
 
-        masTime.sort(function(one, two) {
-            oneTime = parseInt(one.innerHTML.substring(0, one.innerHTML.indexOf(' ')));
-            twoTime = parseInt(two.innerHTML.substring(0, two.innerHTML.indexOf(' ')));
+        masTime.sort((one, two) => {
+            const oneTime = parseInt(one.innerHTML.substring(0, one.innerHTML.indexOf(' ')));
+            const twoTime = parseInt(two.innerHTML.substring(0, two.innerHTML.indexOf(' ')));
             return oneTime - twoTime;
         });
 
 
         outputSortTimeOnPage();
+        masTime = [];
     });
 
     onTimeDecrease.addEventListener('click', function() {
         sortFieldTimeOnPage();
 
-        listOfMovies.sort(function(one, two) {
+        listOfMovies.sort((one, two) => {
             return two.time - one.time;
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
-        masTime.sort(function(one, two) {
-            oneTime = parseInt(one.innerHTML.substring(0, one.innerHTML.indexOf(' ')));
-            twoTime = parseInt(two.innerHTML.substring(0, two.innerHTML.indexOf(' ')));
+        masTime.sort((one, two) => {
+            const oneTime = parseInt(one.innerHTML.substring(0, one.innerHTML.indexOf(' ')));
+            const twoTime = parseInt(two.innerHTML.substring(0, two.innerHTML.indexOf(' ')));
             return twoTime - oneTime;
         });
 
         outputSortTimeOnPage();
+        masTime = [];
     });
 
 
     let masDate = [];
 
     function sortDateOnPage() {
-        let getAllFieldDate = document.querySelectorAll('.table-date');
+        const getAllFieldDate = document.querySelectorAll('.table-date');
         for (let i = 1; i < getAllFieldDate.length; i++) {
             masDate.push(getAllFieldDate[i]);
 
@@ -416,22 +417,22 @@ window.addEventListener('DOMContentLoaded', function() {
         sortDateOnPage();
 
         for (let i = 0; i < listOfMovies.length; i++) {
-            let getItemDate = listOfMovies[i].date;
-            let setMasDate = getItemDate.split('.');
-            let convertDate = new Date(setMasDate[2], setMasDate[1] - 1, setMasDate[0]);
+            const getItemDate = listOfMovies[i].date;
+            const setMasDate = getItemDate.split('.');
+            const convertDate = new Date(setMasDate[2], setMasDate[1] - 1, setMasDate[0]);
             listOfMovies[i].date = convertDate;
         }
 
-        listOfMovies.sort(function(one, two) {
+        listOfMovies.sort((one, two) => {
             return new Date(one.date) - new Date(two.date);
         });
 
         for (let i = 0; i < listOfMovies.length; i++) {
 
-            let getItemDate = listOfMovies[i].date;
-            let convertDate = new Date(getItemDate);
+            const getItemDate = listOfMovies[i].date;
+            const convertDate = new Date(getItemDate);
 
-            let resultDate = [
+            const resultDate = [
                 addLeadZero(convertDate.getDate()),
                 addLeadZero(convertDate.getMonth() + 1),
                 convertDate.getFullYear()
@@ -441,41 +442,42 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
         function addLeadZero(val) {
-            let result = (+val < 10) ? `0${val}` : val;
+            const result = (+val < 10) ? `0${val}` : val;
             return result;
         };
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
 
-        masDate.sort(function(one, two) {
-            oneDate = new Date(one.innerHTML.split('.')[2], one.innerHTML.split('.')[1] - 1, one.innerHTML.split('.')[0]);
-            twoDate = new Date(two.innerHTML.split('.')[2], two.innerHTML.split('.')[1] - 1, two.innerHTML.split('.')[0]);
+        masDate.sort((one, two) => {
+            const oneDate = new Date(one.innerHTML.split('.')[2], one.innerHTML.split('.')[1] - 1, one.innerHTML.split('.')[0]);
+            const twoDate = new Date(two.innerHTML.split('.')[2], two.innerHTML.split('.')[1] - 1, two.innerHTML.split('.')[0]);
             return new Date(oneDate) - new Date(twoDate)
         });
 
         outputSortDateOnPage();
+        masDate = [];
     });
 
     onDateDecrease.addEventListener('click', function() {
         sortDateOnPage();
 
         for (let i = 0; i < listOfMovies.length; i++) {
-            let getItemDate = listOfMovies[i].date;
-            let setMasDate = getItemDate.split('.');
-            let convertDate = new Date(setMasDate[2], setMasDate[1] - 1, setMasDate[0]);
+            const getItemDate = listOfMovies[i].date;
+            const setMasDate = getItemDate.split('.');
+            const convertDate = new Date(setMasDate[2], setMasDate[1] - 1, setMasDate[0]);
             listOfMovies[i].date = convertDate;
         }
 
-        listOfMovies.sort(function(one, two) {
+        listOfMovies.sort((one, two) => {
             return new Date(two.date) - new Date(one.date);
         });
 
         for (let i = 0; i < listOfMovies.length; i++) {
 
-            let getItemDate = listOfMovies[i].date;
-            let convertDate = new Date(getItemDate);
+            const getItemDate = listOfMovies[i].date;
+            const convertDate = new Date(getItemDate);
 
-            let resultDate = [
+            const resultDate = [
                 addLeadZero(convertDate.getDate()),
                 addLeadZero(convertDate.getMonth() + 1),
                 convertDate.getFullYear()
@@ -485,43 +487,45 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
         function addLeadZero(val) {
-            let result = (+val < 10) ? `0${val}` : val;
+            const result = (+val < 10) ? `0${val}` : val;
             return result;
         };
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
 
-        masDate.sort(function(one, two) {
-            oneDate = new Date(one.innerHTML.split('.')[2], one.innerHTML.split('.')[1] - 1, one.innerHTML.split('.')[0]);
-            twoDate = new Date(two.innerHTML.split('.')[2], two.innerHTML.split('.')[1] - 1, two.innerHTML.split('.')[0]);
+        masDate.sort((one, two) => {
+            const oneDate = new Date(one.innerHTML.split('.')[2], one.innerHTML.split('.')[1] - 1, one.innerHTML.split('.')[0]);
+            const twoDate = new Date(two.innerHTML.split('.')[2], two.innerHTML.split('.')[1] - 1, two.innerHTML.split('.')[0]);
             return new Date(twoDate) - new Date(oneDate)
         });
 
         outputSortDateOnPage();
+        masDate = [];
     });
 
 
     clearAllStorage.addEventListener('click', function() {
 
-        if (listOfMovies.length == 0) {
+        if (listOfMovies.length === 0) {
             dontDatebase.style.display = 'block';
         } else {
             let counter = document.getElementsByClassName('timer')[0];
             let timer;
-            let cancel = document.getElementsByClassName('cancel')[0];
+            const cancel = document.getElementsByClassName('cancel')[0];
+            let cur = parseInt(counter.innerHTML);
 
             function action() {
                 let block = document.querySelectorAll('.container-2');
                 if (block.length) {
                     modalTimer.style.display = 'block';
                     timer = setInterval(function() {
-                        let cur = parseInt(counter.innerHTML);
-                        if (cur == '0') {
+                        if (cur === '0') {
+                            clearInterval(timer);
                             localStorage.removeItem('Films');
                             listOfMovies = [];
-                            clearInterval(timer);
                             modalTimer.style.display = 'none';
                             getFilmsFromContainer.textContent = '';
+                            cur = 5;
                         } else
                             cur--;
                         counter.innerHTML = cur;
@@ -531,7 +535,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 } else {
                     modalTimer.style.display = 'none';
                     dontDatebase.style.display = 'block';
-                    counter.innerHTML = 5;
                 }
             }
 
