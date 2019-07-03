@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', function() {
+
     const addButton = document.getElementsByClassName('limenu add')[0];
     const closeButton = document.getElementsByClassName('close')[0];
     const input = document.querySelectorAll('.input-film');
@@ -14,10 +15,11 @@ window.addEventListener('DOMContentLoaded', function() {
     const onTimeDecrease = document.getElementsByClassName('ullinestedtime decrease')[0];
     const onDateIncrease = document.getElementsByClassName('ullinesteddate increase')[0];
     const onDateDecrease = document.getElementsByClassName('ullinesteddate decrease')[0];
-    let getFilmsFromContainer = document.getElementsByClassName('film-container')[0];
+    const getFilmsFromContainer = document.querySelector('.film-container');
     let modalTimer = document.getElementsByClassName('modal-delete')[0];
     let masCheckbox = [];
     let listOfMovies = [];
+
 
     addButton.addEventListener('click', function() {
         modalAdd.style.display = 'block';
@@ -40,6 +42,7 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
     });
+
 
     input.forEach(function(elem, i, mas) {
         if (mas[i].name == 'name') {
@@ -69,10 +72,14 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+
+
     addToStorage.addEventListener('click', function() {
         let infoAboutMovies = {};
+
         input.forEach(function(item) {
             if (item.value != '' && item.value != null) {
+
                 item.style.border = "1px solid #fff";
 
                 for (let i = 0; i < input.length; i++) {
@@ -92,26 +99,29 @@ window.addEventListener('DOMContentLoaded', function() {
                 listOfMovies[i] = infoAboutMovies;
                 outputTableOnPage();
                 localStorage.setItem('Films', JSON.stringify(listOfMovies));
+
             } else {
                 item.style.border = "1px solid red";
             }
         });
-
-
     });
+
 
     function outputTableOnPage() {
         for (let key in listOfMovies) {
             outName = '';
             outTime = '';
             outDate = '';
+
             outName += listOfMovies[key].name;
             outTime += listOfMovies[key].time;
             outDate += listOfMovies[key].date;
         }
+
         creatTableForPage(outName, outTime, outDate);
         clearInput();
     }
+
 
     function creatTableForPage(outName, outTime, outDate) {
         let createDivContainer = document.createElement('DIV');
@@ -148,16 +158,16 @@ window.addEventListener('DOMContentLoaded', function() {
         creatTableCheckBox.appendChild(createTableCheck);
         createDivContainer.appendChild(creatTableCheckBox);
 
+
         createTableColumOutName.textContent = outName;
         createTableColumOutTime.textContent = `${outTime} мин`;
         createTableColumOutDate.textContent = outDate;
-
     }
 
 
     if (localStorage.getItem('Films') != undefined) {
-
         listOfMovies = JSON.parse(localStorage.getItem('Films'));
+
         for (let i = 0; i < listOfMovies.length; i++) {
             const outName = listOfMovies[i].name;
             const outTime = listOfMovies[i].time;
@@ -182,25 +192,26 @@ window.addEventListener('DOMContentLoaded', function() {
         let info = getFilmsFromContainer.querySelectorAll('img');
         let target = e.target;
         let lengthImg = info.length;
+
         if (target && target.classList.contains('img')) {
             for (let i = 0; i < lengthImg; i++) {
                 if (target == info[i]) {
+
                     listOfMovies.splice(i, 1);
                     localStorage.setItem('Films', JSON.stringify(listOfMovies));
                     target.parentNode.parentNode.remove();
                     break;
+
                 }
-
             }
-
         }
-
     });
 
 
-    let checks = getFilmsFromContainer.querySelectorAll("input[type=checkbox]");
+
 
     getFilmsFromContainer.addEventListener('click', function(e) {
+        let checks = document.querySelectorAll('input[type=checkbox]');
         let target = e.target;
         let index = [].indexOf.call(checks, target);
 
@@ -209,15 +220,26 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             masCheckbox.splice(masCheckbox.indexOf(index), 1);
         }
+
+
+        let positiveArr = masCheckbox.filter(function(number) {
+            return number >= 0;
+        });
+
+
+        masCheckbox = positiveArr;
     });
 
-    menuDelete.addEventListener('click', function() {
 
-        for (var i = 0; i < checks.length; i++) {
+    menuDelete.addEventListener('click', function() {
+        let checks = document.querySelectorAll('input[type=checkbox]');
+
+        for (let i = 0; i < checks.length; i++) {
             if (checks[i].type == 'checkbox' && checks[i].checked == true) {
                 checks[i].parentNode.parentNode.remove();
             }
         }
+
 
         function uniuqeElement(arr) {
             let count = 0;
@@ -236,35 +258,39 @@ window.addEventListener('DOMContentLoaded', function() {
             return one - two;
         });
 
+
         if (masCheckbox.length == 0) {
             dontChoose.style.display = 'block';
         } else {
             uniuqeElement(masCheckbox);
+
             for (let i = masCheckbox.length - 1; i >= 0; i--) {
                 listOfMovies.splice(masCheckbox[i], 1);
             }
+
             localStorage.setItem('Films', JSON.stringify(listOfMovies));
         }
-
     });
+
     let masName = [];
 
     function sortFieldNameOnPage() {
-        let getAllFieldName = document.querySelectorAll('.container-2');
-        for (var i = 0; i < getAllFieldName.length; i++) {
+        let getAllFieldName = document.querySelectorAll('.table-name');
+
+        for (var i = 1; i < getAllFieldName.length; i++) {
             masName.push(getAllFieldName[i]);
         }
     }
 
-    sortFieldNameOnPage();
-
     function outputSortNameOnPage() {
         for (var i = 0; i < masName.length; i++) {
-            getFilmsFromContainer.appendChild(masName[i]);
+            getFilmsFromContainer.appendChild(masName[i].parentNode);
         }
     }
 
     onNameIncrease.addEventListener('click', function() {
+        sortFieldNameOnPage();
+
         listOfMovies.sort(function(one, two) {
             let oneName = one.name.toLowerCase();
             let twoName = two.name.toLowerCase();
@@ -288,6 +314,8 @@ window.addEventListener('DOMContentLoaded', function() {
     });
 
     onNameDecrease.addEventListener('click', function() {
+        sortFieldNameOnPage();
+
         listOfMovies.sort(function(one, two) {
             let oneName = one.name.toLowerCase();
             let twoName = two.name.toLowerCase();
@@ -308,20 +336,19 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         outputSortNameOnPage();
-
     });
-
 
     let masTime = [];
 
     function sortFieldTimeOnPage() {
         let getAllFieldTime = document.querySelectorAll('.table-time');
+
         for (var i = 1; i < getAllFieldTime.length; i++) {
             masTime.push(getAllFieldTime[i]);
         }
     }
 
-    sortFieldTimeOnPage();
+
 
     function outputSortTimeOnPage() {
         for (let i = 0; i < masTime.length; i++) {
@@ -330,30 +357,38 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
 
+
     onTimeIncrease.addEventListener('click', function() {
+        sortFieldTimeOnPage();
+
         listOfMovies.sort(function(one, two) {
             return one.time - two.time;
         });
 
+
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
+
         masTime.sort(function(one, two) {
-            oneTime = parseInt(one.innerHTML.split('', 1));
-            twoTime = parseInt(two.innerHTML.split('', 1));
+            oneTime = parseInt(one.innerHTML.substring(0, one.innerHTML.indexOf(' ')));
+            twoTime = parseInt(two.innerHTML.substring(0, two.innerHTML.indexOf(' ')));
             return oneTime - twoTime;
         });
+
 
         outputSortTimeOnPage();
     });
 
     onTimeDecrease.addEventListener('click', function() {
+        sortFieldTimeOnPage();
+
         listOfMovies.sort(function(one, two) {
             return two.time - one.time;
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
         masTime.sort(function(one, two) {
-            oneTime = parseInt(one.innerHTML.split('', 1));
-            twoTime = parseInt(two.innerHTML.split('', 1));
+            oneTime = parseInt(one.innerHTML.substring(0, one.innerHTML.indexOf(' ')));
+            twoTime = parseInt(two.innerHTML.substring(0, two.innerHTML.indexOf(' ')));
             return twoTime - oneTime;
         });
 
@@ -363,15 +398,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
     let masDate = [];
 
-    function sortOnPage() {
+    function sortDateOnPage() {
         let getAllFieldDate = document.querySelectorAll('.table-date');
         for (let i = 1; i < getAllFieldDate.length; i++) {
             masDate.push(getAllFieldDate[i]);
+
         }
     }
-
-    sortOnPage();
-
 
     function outputSortDateOnPage() {
         for (let i = 0; i < masDate.length; i++) {
@@ -380,6 +413,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     onDateIncrease.addEventListener('click', function() {
+        sortDateOnPage();
 
         for (let i = 0; i < listOfMovies.length; i++) {
             let getItemDate = listOfMovies[i].date;
@@ -420,10 +454,10 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         outputSortDateOnPage();
-
     });
 
     onDateDecrease.addEventListener('click', function() {
+        sortDateOnPage();
 
         for (let i = 0; i < listOfMovies.length; i++) {
             let getItemDate = listOfMovies[i].date;
@@ -466,31 +500,38 @@ window.addEventListener('DOMContentLoaded', function() {
         outputSortDateOnPage();
     });
 
-    // const numbersCopy = [...listOfMovies]
 
     clearAllStorage.addEventListener('click', function() {
 
         if (listOfMovies.length == 0) {
             dontDatebase.style.display = 'block';
         } else {
-            let block = modalTimer.style.display = 'block';
             let counter = document.getElementsByClassName('timer')[0];
             let timer;
             let cancel = document.getElementsByClassName('cancel')[0];
 
-            function action(btn) {
-                if (btn == 'block') {
+            function action() {
+                let block = document.querySelectorAll('.container-2');
+                if (block.length) {
+                    modalTimer.style.display = 'block';
                     timer = setInterval(function() {
                         let cur = parseInt(counter.innerHTML);
                         if (cur == '0') {
                             localStorage.removeItem('Films');
-                            block = modalTimer.style.display = 'none';
+                            listOfMovies = [];
                             clearInterval(timer);
+                            modalTimer.style.display = 'none';
                             getFilmsFromContainer.textContent = '';
-
-                        } else cur--;
+                        } else
+                            cur--;
                         counter.innerHTML = cur;
+
                     }, 1000);
+
+                } else {
+                    modalTimer.style.display = 'none';
+                    dontDatebase.style.display = 'block';
+                    counter.innerHTML = 5;
                 }
             }
 
@@ -499,7 +540,8 @@ window.addEventListener('DOMContentLoaded', function() {
                 counter.innerHTML = 5;
                 block = modalTimer.style.display = 'none';
             });
-            action(block);
+
+            action();
         }
     });
 });
