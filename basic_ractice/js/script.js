@@ -60,9 +60,9 @@ window.addEventListener('DOMContentLoaded', function() {
                 const year = parseFloat(mas[i].value.slice(6, 10));
                 if (day >= 1 && day <= 31 && month >= 1 && month <= 12 &&
                     year >= 1000 && year <= 9999) {
-                    mas[i].style.border = "1px solid #fff";
+                    mas[i].style.border = '1px solid #fff';
                 } else {
-                    mas[i].style.border = "1px solid red";
+                    mas[i].style.border = '1px solid red';
                 }
                 mas[i].value = mas[i].value.replace(/[^0-9\.]/ig, '');
             });
