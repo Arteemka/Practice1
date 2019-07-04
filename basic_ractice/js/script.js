@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const onDateIncrease = document.getElementsByClassName('ullinesteddate increase')[0];
     const onDateDecrease = document.getElementsByClassName('ullinesteddate decrease')[0];
     const getFilmsFromContainer = document.querySelector('.film-container');
-    let modalTimer = document.getElementsByClassName('modal-delete')[0];
+    const modalTimer = document.getElementsByClassName('modal-delete')[0];
     let masCheckbox = [];
     let listOfMovies = [];
 
@@ -72,38 +72,39 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
     addToStorage.addEventListener('click', function() {
-        let infoAboutMovies = {};
+        const infoAboutMovies = {};
 
         input.forEach(function(item) {
-            if (item.value !== '' && item.value !== null) {
+            if (!!item.value) {
 
-                item.style.border = "1px solid #fff";
+                item.style.border = '1px solid #fff';
 
                 for (let i = 0; i < input.length; i++) {
                     if (input[i].name === 'name') {
-                        let name = input[i].value;
-                        infoAboutMovies.name = name;
+                        infoAboutMovies.name = input[i].value;
                     } else if (input[i].name === 'time') {
-                        let time = +input[i].value;
-                        infoAboutMovies.time = time;
+                        infoAboutMovies.time = +input[i].value;
                     } else if (input[i].name === 'date') {
-                        let date = input[i].value;
-                        infoAboutMovies.date = date;
+                        infoAboutMovies.date = input[i].value;
                     }
                 }
 
-                let i = listOfMovies.length;
+                const i = listOfMovies.length;
                 listOfMovies[i] = infoAboutMovies;
                 localStorage.setItem('Films', JSON.stringify(listOfMovies));
                 outputTableOnPage();
             } else {
-                item.style.border = "1px solid red";
+                item.style.border = '1px solid red';
             }
         });
     });
 
-
     function outputTableOnPage() {
+
+        let outName;
+        let outTime;
+        let outDate;
+
         for (let key in listOfMovies) {
             outName = '';
             outTime = '';
@@ -112,6 +113,7 @@ window.addEventListener('DOMContentLoaded', function() {
             outName += listOfMovies[key].name;
             outTime += listOfMovies[key].time;
             outDate += listOfMovies[key].date;
+
         }
 
         creatTableForPage(outName, outTime, outDate);
@@ -119,7 +121,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    function creatTableForPage(outName, outTime, outDate) {
+    function creatTableForPage(name, time, date) {
         const createDivContainer = document.createElement('DIV');
         const createTableColumOutName = document.createElement('DIV');
         const createTableColumOutTime = document.createElement('DIV');
@@ -155,9 +157,9 @@ window.addEventListener('DOMContentLoaded', function() {
         createDivContainer.appendChild(creatTableCheckBox);
 
 
-        createTableColumOutName.textContent = outName;
-        createTableColumOutTime.textContent = `${outTime} мин`;
-        createTableColumOutDate.textContent = outDate;
+        createTableColumOutName.textContent = name;
+        createTableColumOutTime.textContent = `${time} мин`;
+        createTableColumOutDate.textContent = date;
     }
 
 
@@ -165,10 +167,10 @@ window.addEventListener('DOMContentLoaded', function() {
         listOfMovies = JSON.parse(localStorage.getItem('Films'));
 
         for (let i = 0; i < listOfMovies.length; i++) {
-            const outName = listOfMovies[i].name;
-            const outTime = listOfMovies[i].time;
-            const outDate = listOfMovies[i].date;
-            creatTableForPage(outName, outTime, outDate);
+            const { name } = listOfMovies[i];
+            const { time } = listOfMovies[i];
+            const { date } = listOfMovies[i];
+            creatTableForPage(name, time, date);
         }
     }
 
@@ -178,7 +180,7 @@ window.addEventListener('DOMContentLoaded', function() {
     function clearInput() {
         input.forEach((item) => {
             item.value = '';
-            item.style.border = '.07142857rem solid #e0e0e0';
+            item.style.border = '1px solid #e0e0e0';
         });
     };
 
@@ -186,11 +188,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
     getFilmsFromContainer.addEventListener('click', function(e) {
         const info = getFilmsFromContainer.querySelectorAll('img');
-        const target = e.target;
-        const lengthImg = info.length;
+        const { target } = e;
 
         if (target && target.classList.contains('img')) {
-            for (let i = 0; i < lengthImg; i++) {
+            for (let i = 0; i < info.length; i++) {
                 if (target === info[i]) {
 
                     listOfMovies.splice(i, 1);
@@ -218,10 +219,7 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
 
-        let positiveArr = masCheckbox.filter((number) => {
-            return number >= 0;
-        });
-
+        const positiveArr = masCheckbox.filter((number) => number >= 0);
 
         masCheckbox = positiveArr;
     });
@@ -240,7 +238,7 @@ window.addEventListener('DOMContentLoaded', function() {
         function uniuqeElement(arr) {
             let count = 0;
             for (i = 0; i < arr.length; i++) {
-                let temp = arr[i];
+                const temp = arr[i];
 
                 for (j = 0; j < arr.length; j++)
                     if (temp === arr[j])
@@ -250,9 +248,7 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        masCheckbox.sort((one, two) => {
-            return one - two;
-        });
+        masCheckbox.sort((one, two) => one - two);
 
 
         if (masCheckbox.length === 0) {
@@ -291,20 +287,14 @@ window.addEventListener('DOMContentLoaded', function() {
         listOfMovies.sort((one, two) => {
             const oneName = one.name.toLowerCase();
             const twoName = two.name.toLowerCase();
-            if (oneName < twoName)
-                return -1;
-            if (oneName > twoName)
-                return 1;
-            return 0;
+            const result = (oneName < twoName) ? -1 : 1;
+            return result;
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
         masName.sort((one, two) => {
-            if (one.innerHTML < two.innerHTML)
-                return -1;
-            if (one.innerHTML > two.innerHTML)
-                return 1;
-            return 0;
+            const result = (one.innerHTML < two.innerHTML) ? -1 : 1;
+            return result;
         });
 
         outputSortNameOnPage();
@@ -317,20 +307,14 @@ window.addEventListener('DOMContentLoaded', function() {
         listOfMovies.sort((one, two) => {
             const oneName = one.name.toLowerCase();
             const twoName = two.name.toLowerCase();
-            if (oneName > twoName)
-                return -1;
-            if (oneName < twoName)
-                return 1;
-            return 0;
+            const result = (oneName > twoName) ? -1 : 1;
+            return result;
         });
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
         masName.sort((one, two) => {
-            if (one.innerHTML > two.innerHTML)
-                return -1;
-            if (one.innerHTML < two.innerHTML)
-                return 1;
-            return 0;
+            const result = (one.innerHTML > two.innerHTML) ? -1 : 1;
+            return result;
         });
 
         outputSortNameOnPage();
@@ -360,10 +344,7 @@ window.addEventListener('DOMContentLoaded', function() {
     onTimeIncrease.addEventListener('click', function() {
         sortFieldTimeOnPage();
 
-        listOfMovies.sort((one, two) => {
-            return one.time - two.time;
-        });
-
+        listOfMovies.sort((one, two) => one.time - two.time);
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
 
@@ -381,9 +362,7 @@ window.addEventListener('DOMContentLoaded', function() {
     onTimeDecrease.addEventListener('click', function() {
         sortFieldTimeOnPage();
 
-        listOfMovies.sort((one, two) => {
-            return two.time - one.time;
-        });
+        listOfMovies.sort((one, two) => two.time - one.time);
 
         localStorage.setItem('Films', JSON.stringify(listOfMovies));
         masTime.sort((one, two) => {
@@ -423,9 +402,7 @@ window.addEventListener('DOMContentLoaded', function() {
             listOfMovies[i].date = convertDate;
         }
 
-        listOfMovies.sort((one, two) => {
-            return new Date(one.date) - new Date(two.date);
-        });
+        listOfMovies.sort((one, two) => new Date(one.date) - new Date(two.date));
 
         for (let i = 0; i < listOfMovies.length; i++) {
 
@@ -468,9 +445,7 @@ window.addEventListener('DOMContentLoaded', function() {
             listOfMovies[i].date = convertDate;
         }
 
-        listOfMovies.sort((one, two) => {
-            return new Date(two.date) - new Date(one.date);
-        });
+        listOfMovies.sort((one, two) => new Date(two.date) - new Date(one.date));
 
         for (let i = 0; i < listOfMovies.length; i++) {
 
