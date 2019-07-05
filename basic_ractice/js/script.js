@@ -484,7 +484,7 @@ window.addEventListener('DOMContentLoaded', function() {
         if (listOfMovies.length === 0) {
             dontDatebase.style.display = 'block';
         } else {
-            let counter = document.getElementsByClassName('timer')[0];
+            counter = document.getElementsByClassName('timer')[0];
             let timer;
             const cancel = document.getElementsByClassName('cancel')[0];
             let cur = parseInt(counter.innerHTML);
@@ -494,7 +494,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 if (block.length) {
                     modalTimer.style.display = 'block';
                     timer = setInterval(function() {
-                        if (cur === '0') {
+                        if (cur === 0) {
                             clearInterval(timer);
                             localStorage.removeItem('Films');
                             listOfMovies = [];
