@@ -92,10 +92,16 @@ window.addEventListener('DOMContentLoaded', function() {
 
                     if (input[i].name === 'name') {
                         name = input[i].value;
+                        if (name === '') {
+                            name = 'notName';
+                        }
                     } else if (input[i].name === 'time') {
                         time = +input[i].value;
                     } else if (input[i].name === 'date') {
                         date = input[i].value;
+                        if (date === '') {
+                            date = '00.00.0000';
+                        }
                     }
                     infoAboutMovies = new Movies(name, time, date);
                 }
@@ -105,8 +111,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 listOfMovies[i] = infoAboutMovies;
                 localStorage.setItem('Films', JSON.stringify(listOfMovies));
                 outputTableOnPage();
-            } else {
-                item.style.border = '1px solid red';
             }
         });
     });
