@@ -1,0 +1,803 @@
+    html {
+        background: url(../img/back.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    
+    .otd {
+        padding: 10px;
+        border: none;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+        border-bottom: 2px solid #e85f5f;
+        color: #454545;
+    }
+    
+    .content {
+        position: relative;
+        background-color: #e85f5f;
+        left: 10px;
+        color: #454545;
+        margin-top: 100px;
+        border: 5px solid #e85f5f;
+        max-width: 12.64285714rem;
+        text-align: center;
+        vertical-align: middle;
+        padding: .51428571rem 0 .51428571rem 0;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        transition: 0.5s;
+    }
+    
+    .content_raspisanie:after {
+        color: #fff;
+        content: 'Расписание';
+        text-align: center;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .activeAdd:after {
+        content: "Расписание";
+    }
+    
+    .content_lokomotiv:after {
+        color: #fff;
+        content: 'Локомотив';
+        text-align: center;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .activeLoko:after {
+        content: "Локомотив";
+    }
+    
+    .content_bileti:after {
+        color: #fff;
+        content: 'Билеты';
+        text-align: center;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .activeBileti:after {
+        content: "Билеты";
+    }
+    
+    .content_otdel:after {
+        color: #fff;
+        content: 'Отдел';
+        text-align: center;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .activeOtdel:after {
+        content: "Отдел";
+    }
+    
+    .content_rab:after {
+        color: #fff;
+        content: 'Работник';
+        text-align: center;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .activeRab:after {
+        content: "Работник";
+    }
+    
+    .content:after {
+        color: #fff;
+        content: 'Раскрыть Меню';
+        text-align: center;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .activeBas:after {
+        content: "Скрыть Меню";
+    }
+    
+    .content_teh_brig:after {
+        color: #fff;
+        content: 'Техническая бригада';
+        text-align: center;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .activeBrig:after {
+        content: "Техническая бригада";
+    }
+    
+    .block,
+    .block_raspisanie,
+    .block_bileti,
+    .block_otdel,
+    .block_rab,
+    .block_teh_brig,
+    .block_lokomotiv {
+        position: absolute;
+        background-color: white;
+        max-height: 0;
+        left: 18px;
+        overflow: hidden;
+        max-width: 13.28rem;
+        transition: max-height 0.3s ease-out;
+        color: #454545;
+        text-align: center;
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    
+    .block_bileti {
+        left: 490px;
+        top: 147px;
+        max-width: 200px;
+    }
+    
+    .block_raspisanie {
+        left: 280px;
+        top: 147px;
+        max-width: 200px;
+        z-index: 10;
+    }
+    
+    .block_otdel {
+        left: 700px;
+        top: 147px;
+        max-width: 200px;
+    }
+    
+    .block_rab {
+        left: 910px;
+        top: 147px;
+        max-width: 200px;
+    }
+    
+    .block_teh_brig {
+        left: 1120px;
+        top: 147px;
+        max-width: 200px;
+    }
+    
+    .block_lokomotiv {
+        left: 280px;
+        top: 246px;
+        max-width: 200px;
+    }
+    
+    .add,
+    .edit,
+    .delete,
+    .zap,
+    .flights,
+    .lokomotiv {
+        position: relative;
+        color: #fff;
+        background-color: #e85f5f;
+        width: 160px;
+        height: 37px;
+        top: 15px;
+        border: none;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .shedule,
+    .department,
+    .ticket,
+    .worker,
+    .teh_team,
+    .sheduled,
+    .departmentd,
+    .ticketd,
+    .workerd,
+    .teh_teamd,
+    .loko {
+        position: absolute;
+        color: #fff;
+        background-color: #e85f5f;
+        width: 160px;
+        margin-top: -48px;
+        height: 37px;
+        border: none;
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+    }
+    
+    .shedule {
+        margin-left: 240px;
+    }
+    
+    .sheduled {
+        margin-left: 240px;
+    }
+    
+    .department {
+        margin-left: 420px;
+    }
+    
+    .departmentd {
+        margin-left: 420px;
+    }
+    
+    .ticket {
+        margin-left: 600px;
+    }
+    
+    .ticketd {
+        margin-left: 600px;
+    }
+    
+    .worker {
+        margin-left: 780px;
+    }
+    
+    .workerd {
+        margin-left: 780px;
+    }
+    
+    .teh_team {
+        width: 200px;
+        margin-left: 960px;
+    }
+    
+    .teh_teamd {
+        width: 200px;
+        margin-left: 960px;
+    }
+    
+    .add:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .edit:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .delete:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .zap:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .flights:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .lokomotiv:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .edit {
+        top: 20px;
+    }
+    
+    .delete {
+        top: 25px;
+    }
+    
+    .zap {
+        top: 30px;
+    }
+    
+    .flights {
+        top: 35px;
+    }
+    
+    .lokomotiv {
+        top: 40px;
+        margin-bottom: 45px;
+    }
+    
+    .content_raspisanie,
+    .content_bileti,
+    .content_otdel,
+    .content_rab,
+    .content_teh_brig,
+    .content_lokomotiv {
+        position: absolute;
+        background-color: #e85f5f;
+        left: 280px;
+        width: 190px;
+        top: 100px;
+        color: #454545;
+        border: 5px solid #e85f5f;
+        max-width: 13.64285714rem;
+        text-align: center;
+        vertical-align: middle;
+        padding: .51428571rem 0 .51428571rem 0;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        transition: 0.5s;
+    }
+    
+    .content_bileti {
+        left: 490px;
+    }
+    
+    .content_otdel {
+        left: 700px;
+    }
+    
+    .content_rab {
+        position: absolute;
+        top: 100px;
+        left: 910px;
+    }
+    
+    .content_teh_brig {
+        position: absolute;
+        top: 100px;
+        left: 1120px;
+    }
+    
+    .content_lokomotiv {
+        position: absolute;
+        top: 200px;
+        left: 280px;
+    }
+    
+    .input-db {
+        height: 2.42857143rem;
+        width: 180px;
+        line-height: 1.71428571rem;
+        color: #454545;
+        padding-left: 0.42857143rem;
+        font-size: 1.14285714rem;
+        padding-right: .42857143rem;
+        outline: 0;
+        margin-top: 5px;
+        border-width: 0 0 2px;
+        border-color: #e85f5f;
+        background-color: #ffffff;
+    }
+    
+    .div_add {
+        position: relative;
+        height: 2.12857143rem;
+        width: 100px;
+        background-color: #e85f5f;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 1.14285714rem;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .div_add:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .modal-add {
+        display: none;
+    }
+    
+    table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        font-size: 14px;
+        background: white;
+        border-collapse: collapse;
+        margin-left: 20px;
+    }
+    
+    th {
+        position: relative;
+        font-weight: normal;
+        color: #1b9e48;
+        border-bottom: 2px solid #1b9e48;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 35px;
+        padding-left: 40px;
+        text-align: left;
+        background: none;
+    }
+    
+    td {
+        border-bottom: 1px solid #ccc;
+        color: #1b9e48;
+        transition: .3s linear;
+        padding-left: 45px;
+    }
+    
+    tr.active {
+        background-color: #79fca7;
+    }
+    
+    .modal-edit {
+        position: relative;
+        background-color: white;
+        padding-bottom: 70px;
+        border: 5px solid #ffffff;
+        text-align: center;
+        color: #454545;
+        max-width: 28.64285714rem;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    
+    .label-db {
+        position: absolute;
+        margin-bottom: .35714286rem;
+        font-weight: bold;
+    }
+    
+    .dep {
+        position: absolute;
+        margin-left: -395px;
+        margin-top: 57px;
+    }
+    
+    .start {
+        position: absolute;
+        margin-left: -395px;
+        margin-top: 57px;
+    }
+    
+    .st {
+        position: absolute;
+        margin-left: -395px;
+        margin-top: 57px;
+    }
+    
+    .numbag {
+        position: absolute;
+        margin-left: -295px;
+        margin-top: 57px;
+    }
+    
+    .sred_zap {
+        position: absolute;
+        margin-left: -325px;
+        margin-top: 57px;
+    }
+    
+    .otdeledit {
+        position: absolute;
+        margin-left: -10px;
+        margin-top: 0px;
+        width: 150px;
+    }
+    
+    .otdel {
+        position: absolute;
+        margin-left: -395px;
+        margin-top: 57px;
+    }
+    
+    .brig {
+        position: absolute;
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+    
+    .time {
+        position: absolute;
+        margin-left: -295px;
+        margin-top: 57px;
+    }
+    
+    .input-db-edit {
+        height: 2.42857143rem;
+        width: 180px;
+        line-height: 1.71428571rem;
+        color: #454545;
+        padding-left: 0.42857143rem;
+        font-size: 1.14285714rem;
+        padding-right: .42857143rem;
+        outline: 0;
+        margin-top: 15px;
+        border-width: 0 0 2px;
+        border-color: #e85f5f;
+        background-color: #ffffff;
+    }
+    
+    .editbutt,
+    .editbut {
+        position: absolute;
+        height: 2.12857143rem;
+        width: 150px;
+        background-color: #e85f5f;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 1.14285714rem;
+        margin-top: 70px;
+        margin-bottom: 10px;
+        margin-left: -170px;
+    }
+    
+    .editbut {
+        margin-left: -275px;
+    }
+    
+    .editbutt:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    .modal-content-add-text {
+        position: relative;
+        background-color: white;
+        color: #454545;
+        border: 5px solid #ffffff;
+        max-width: 28.64285714rem;
+        text-align: center;
+        margin-bottom: 5px;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    
+    .add-text {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        color: #454545;
+    }
+    
+    .modal-delete {
+        display: block;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    .modal-content-delete {
+        position: relative;
+        background-color: white;
+        margin: 0 auto 1.42857143rem;
+        padding-bottom: 30px;
+        border: 5px solid #ffffff;
+        max-width: 23.64285714rem;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    
+    .button-yes {
+        position: relative;
+        height: 2.12857143rem;
+        width: 140px;
+        margin-left: 30px;
+        background-color: #1b9e48;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        border-radius: 25px;
+        font-size: 1.14285714rem;
+    }
+    
+    .button-yes:hover {
+        background-color: #ffffff;
+        color: #1b9e48;
+        border: .1142857rem solid #1b9e48;
+    }
+    
+    .button-no {
+        position: absolute;
+        height: 2.12857143rem;
+        width: 140px;
+        margin-top: -34px;
+        margin-left: 200px;
+        background-color: #1b9e48;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        border-radius: 25px;
+        font-size: 1.14285714rem;
+    }
+    
+    .closes {
+        color: #1b9e48;
+        position: absolute;
+        font-size: 26px;
+        font-weight: bold;
+        margin-left: 2.5px;
+        margin-top: -.27rem;
+    }
+    
+    .closes:hover,
+    .closes:focus {
+        z-index: 1;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .d1 {
+        position: absolute;
+        margin-left: 350px;
+        width: 20px;
+        margin-top: 10px;
+        height: 20px;
+        background: #454545;
+        border-radius: 50%;
+    }
+    
+    .modal_edit,
+    .modal_delete {
+        display: none;
+    }
+    
+    .back {
+        position: relative;
+        height: 2.12857143rem;
+        width: 100px;
+        background-color: #e85f5f;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 1.14285714rem;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .back:hover {
+        background-color: #fff;
+        color: #e85f5f;
+        border: .1142857rem solid #e85f5f;
+    }
+    
+    #rectangle {
+        position: absolute;
+        margin-left: 280px;
+        width: 800px;
+        height: 100px;
+        background: #454545;
+        border-radius: 10px;
+    }
+    
+     ::-webkit-input-placeholder {
+        font-family: Arial;
+        font-size: 1.14285714rem;
+        vertical-align: middle;
+    }
+    
+    li {
+        display: inline-block;
+        list-style: none;
+        margin-left: -.40em;
+        z-index: 1;
+    }
+    
+    ul {
+        position: absolute;
+        margin-top: 30px;
+        margin-left: 255px;
+    }
+    
+    input.pointd {
+        width: 120px;
+        height: 15px;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid #999;
+        font-size: 1.14285714rem;
+        font-family: Tahoma;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-radius: 4px;
+    }
+    
+    input.pointa {
+        width: 120px;
+        height: 15px;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid #999;
+        font-size: 1.14285714rem;
+        font-family: Tahoma;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+    
+    input.timed {
+        width: 200px;
+        height: 15px;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid #999;
+        font-size: 1.14285714rem;
+        font-family: Tahoma;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+    
+    input.timea {
+        width: 170px;
+        height: 15px;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid #999;
+        font-size: 1.14285714rem;
+        font-family: Tahoma;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+    
+    .button_f {
+        width: 90px;
+        font-size: 1.14285714rem;
+        padding: 0;
+        border-radius: inherit;
+        color: #ffffff;
+        padding-top: 10.5px;
+        padding-bottom: 8px;
+        border: none;
+        background-color: #1b9e48;
+        cursor: pointer;
+    }
+    
+    #tableo {
+        position: absolute;
+        margin-top: 150px;
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        font-size: 14px;
+        background: white;
+        border-collapse: collapse;
+        margin-left: 170px;
+    }
+    
+    .text {
+        margin: auto;
+        text-align: center;
+        font-size: 32px;
+        line-height: 1.5;
+        text-shadow: 0 0 15px rgba(255, 255, 255, .5), 0 0 10px rgba(255, 255, 255, .5);
+    }
+    
+    .right-click-menu {
+        margin-left: -5px;
+        padding: 0;
+        position: fixed;
+        list-style: none;
+        background: #fff;
+        border: 2px solid #ffffff;
+        border-radius: 2px;
+        display: none;
+    }
+    
+    .right-click-menu.active {
+        display: block;
+    }
+    
+    .right-click-menu li {
+        width: 200px;
+        padding: 10px;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 20px;
+    }
+    
+    .right-click-menu li:hover {
+        background: #79fca7;
+    }
+    
+    .right-click-area {
+        background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+        color: #1b9e48;
+        margin: auto;
+        display: flex;
+        position: relative;
+    }
