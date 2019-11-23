@@ -197,7 +197,12 @@
     .ticketd,
     .workerd,
     .teh_teamd,
-    .loko {
+    .loko,
+    .cancel,
+    .zade,
+    .lokod,
+    .canceld,
+    .zaded {
         position: absolute;
         color: #fff;
         background-color: #e85f5f;
@@ -207,6 +212,36 @@
         border: none;
         font-size: 18px;
         font-family: "Times New Roman", Times, serif;
+    }
+    
+    .zade {
+        margin-left: 600px;
+        margin-top: 50px;
+    }
+    
+    .cancel {
+        margin-left: 420px;
+        margin-top: 50px;
+    }
+    
+    .loko {
+        margin-left: 250px;
+        margin-top: 50px;
+    }
+    
+    .zaded {
+        margin-left: 600px;
+        margin-top: 50px;
+    }
+    
+    .canceld {
+        margin-left: 420px;
+        margin-top: 50px;
+    }
+    
+    .lokod {
+        margin-left: 250px;
+        margin-top: 50px;
     }
     
     .shedule {
@@ -454,9 +489,26 @@
         margin-top: 57px;
     }
     
+    .sexx {
+        position: absolute;
+        margin-left: -200px;
+        margin-top: 57px;
+    }
+    
+    .agee {
+        position: absolute;
+        margin-left: -200px;
+    }
+    
     .st {
         position: absolute;
         margin-left: -395px;
+        margin-top: 57px;
+    }
+    
+    .nb {
+        position: absolute;
+        margin-left: -300px;
         margin-top: 57px;
     }
     
@@ -513,7 +565,9 @@
     }
     
     .editbutt,
-    .editbut {
+    .editbut,
+    .editbutb,
+    .editbuttt {
         position: absolute;
         height: 2.12857143rem;
         width: 150px;
@@ -529,6 +583,10 @@
     
     .editbut {
         margin-left: -275px;
+    }
+    
+    .editbuttt {
+        margin-left: -200px;
     }
     
     .editbutt:hover {
@@ -800,4 +858,18 @@
         margin: auto;
         display: flex;
         position: relative;
+    }
+    
+    .age_lok {
+        margin-top: 60px;
+        margin-left: -300px;
+    }
+    
+    .editbutb {
+        margin-left: -170px;
+    }
+    
+    .kol {
+        margin-left: -290px;
+        margin-top: 57px;
     }

@@ -21,80 +21,73 @@ or die("<p>Ошибка подключения к базе данных! " . mys
 mysql_select_db($database)//параметр в скобках ("имя базы, с которой соединяемся")
  or die("<p>Ошибка выбора базы данных! ". mysql_error() . "</p>"); 
 
-if(isset($_POST['send_b']) ){
+if(isset($_POST['send_l']) ){
   
         // экранирования символов для mysql
-        $status_bil = $_REQUEST['status_bil'];
-        $type_bil = $_REQUEST['type_bil'];
-        $vrem_buy = $_REQUEST['vrem_buy'];
-        $fio_owner = $_REQUEST['fio_owner']; 
-        $sex = $_REQUEST['sex'];
-        $age_ow = $_REQUEST['age_ow'];
-        $nomer_bagazh = $_REQUEST['nomer_bagazh'];
-        $id_r = $_REQUEST['id_r'];
-        $id_bil = $_REQUEST['id_bil'];
-        
+        $date_teh_osm = $_REQUEST['date_teh_osm'];
+        $date_remont_last = $_REQUEST['date_remont_last'];
+        $kol_remont = $_REQUEST['kol_remont'];
+        $kol_reis = $_REQUEST['kol_reis']; 
+        $age_lok = $_REQUEST['age_lokk'];  
+        $id_lok = $_REQUEST['id_lok'];       
        
    
-    $query ="UPDATE bileti SET 
-    status_bil='$status_bil',
-    type_bil='$type_bil',
-    vrem_buy='$vrem_buy',
-    fio_owner='$fio_owner',
-    sex='$sex',
-    age_ow='$age_ow',
-    nomer_bagazh='$nomer_bagazh',
-    id_r ='$id_r' WHERE id_bil='$id_bil'";
+    $query ="UPDATE lokomotivi SET 
+    date_teh_osm='$date_teh_osm',
+    date_remont_last='$date_remont_last',
+    kol_remont='$kol_remont',
+    kol_reis='$kol_reis',
+    age_lok='$age_lok' WHERE lokomotivi.id_lok='$id_lok'";
      $result = mysql_query($query) or die("Ошибка " . mysql_error($link)); 
-    // выполняем запрос
-    
+//     // выполняем запрос
+//    if($result)
+//             echo "<span style='color:blue;'>Данные обновлены</span>";
+//             exit('<meta http-equiv="refresh" content="2; url=http://dsdas/Kyrsavyia/lokomotivedit.php" />');
+   
+//     // закрываем подключение
+   
+   
 }
  
+// если запрос GET
 if(isset($_GET['id']))
 {   
-    $id = mysql_real_escape_string($_GET['id']);
+    $id_lok = mysql_real_escape_string($_GET['id']);
      
     // создание строки запроса
-    $query ="SELECT * FROM bileti WHERE id_bil = '$id'";
+    $query ="SELECT * FROM lokomotivi WHERE id_lok = '$id_lok'";
     // выполняем запрос
     $result = mysql_query($query) or die("Ошибка " . mysql_error($link)); 
     //если в запросе более нуля строк
     if($result && mysql_num_rows($result)>0) 
     {
         $row = mysql_fetch_row($result); // получаем первую строку
-        $status_bil = $row[1];
-        $type_bil = $row[2];
-        $vrem_buy = $row[3];
-       $fio_owner = $row[4];
-       $age_ow = $row[6];
-        $sex = $row[5];
-        $nomer_bagazh = $row[7];
-        $id_r= $row[8];
-
+        $date_teh_osm = $row[1];
+        $date_remont_last = $row[2];
+        $kol_remont = $row[3];
+       $kol_reis = $row[4];
+        $age_lok = $row[5];
       
+       
         echo "
             <form method='POST' >
             <div class='modal-content-add-text'>
         <p class='add-text'>Редактировать</p>
     </div>
     <div class='modal-edit'>
-    <input type='hidden' name='id_bil' value='$id' />
-    <label class='label-db number'>Статус билета</label>
-    <input class='input-db-edit' name='status_bil' type='text' value='$status_bil'>
-    <label class='label-db type'>Тип Билета</label>
-    <input class='input-db-edit' name='type_bil' type='text' value='$type_bil'>
-    <label class='label-db dep'>Время покупки</label>
-    <input class='input-db-edit' name='vrem_buy' type='text' value='$vrem_buy'>
-    <label class='label-db arr'>Фио Владельца</label>
-    <input class='input-db-edit' name='fio_owner' type='text' value='$fio_owner'>
-    <label class='label-db start'>Пол</label>
-    <input class='input-db-edit' name='sex' type='text' value='$sex'>
-    <label class='label-db end'>Возраст</label>
-    <input class='input-db-edit' name='age_ow' type='text' value='$age_ow'>
-    <label class='label-db nb'>Номер багажа</label>
-    <input class='input-db-edit' name='nomer_bagazh' type='text' value='$nomer_bagazh'>
-    <input type=hidden name='id_r' type='text' value='$id_r'>                 
-<button type='submit'  name = 'send_b' class='editbutb'>Редакиторовать</button>
+    <input type='hidden' name='id_lok' value='$id_lok' />
+    <label class='label-db number'>Дата осмотра</label>
+    <input class='input-db-edit' name='date_teh_osm' type='text' value='$date_teh_osm'>
+    <label class='label-db type'>Последний ремонт</label>
+    <input class='input-db-edit' name='date_remont_last' type='text' value='$date_remont_last'>
+    <label class='label-db dep'>Кол ремонтов</label>
+    <input class='input-db-edit' name='kol_remont' type='text' value='$kol_remont'>
+    <label class='label-db arr'>Кол Рейсов</label>
+    <input class='input-db-edit' name='kol_reis' type='text' value='$kol_reis'>
+    <label class='label-db age_lok'>Возраст</label>
+    <input class='input-db-edit' name='age_lokk' type='text' value='$age_lok'> 
+               
+<button type='submit'  name = 'send_l' class='editbutt'>Редакиторовать</button>
             </div>
             </form>
             ";
@@ -102,8 +95,8 @@ if(isset($_GET['id']))
             mysql_free_result($result);
         }
     }
- 
-
+    // закрываем подключение
+   
 ?>
 
 <div>
@@ -112,26 +105,20 @@ if(isset($_GET['id']))
 
                 <tr class= 'num'>
                     <th>
-                        Статус <br> Билета
+                        Дата <br> Техосмотра
                     </th>
                     <th>
-                        Тип <br> Билета
+                        Дата <br>последнего емонта
                     </th>
                     <th>
-                        Время <br> Покупки
+                       Количество <br> Ремонтов
                     </th>
                     <th>
-                        Фио <br> Владельца
+                        Количество <br> Рейсов
                     </th>
                     <th>
-                       Пол
-                    </th>
-                    <th>
-                        Возраст
-                    </th>
-                    <th>
-                        Номер <br> Багажа
-                    </th>                  
+                        Возраст <br> Локомотива
+                    </th>               
                 </tr>
 
             </thead>
@@ -147,7 +134,7 @@ if(isset($_GET['id']))
   // экранирования символов для mysql
            //  mysql_select_db($db)//параметр в скобках ("имя базы, с которой соединяемся")
            //   or die("<p>Ошибка выбора базы данных! ". mysql_error() . "</p>");
-            $query ="SELECT * FROM bileti";
+            $query ="SELECT * FROM lokomotivi";
              
             $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($con)); 
             if($result)
@@ -159,7 +146,7 @@ if(isset($_GET['id']))
                     $row = mysqli_fetch_row($result);
                    
                     echo "<tr class='num'> ";
-                        for ($j = 1 ; $j < 8; ++$j) echo "<td>$row[$j]</td>";
+                        for ($j = 1 ; $j < 6; ++$j) echo "<td>$row[$j]</td>";
                     echo "</a></tr>";
                     
                 }
@@ -175,7 +162,7 @@ if(isset($_GET['id']))
     </div>
     <button class="back" type="button">Назад</button>
     
-<script src="./js/editbil.js"></script>
+<script src="./js/editlokomotiv.js"></script>
 
 </body>
 </html>

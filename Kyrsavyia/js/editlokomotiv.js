@@ -14,7 +14,7 @@ let active = function() {
 let num = document.querySelectorAll(".num");
 for (let i = 1; i < num.length; i++) {
     num[i].addEventListener('click', () => {
-        window.location.replace("http://dsdas/Kyrsavyia/editbileti.php?id=" + i);
+        window.location.replace("http://dsdas/Kyrsavyia/lokomotivedit.php?id=" + i);
     });
 }
 

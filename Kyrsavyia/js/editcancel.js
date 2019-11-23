@@ -11,10 +11,13 @@ let active = function() {
     }
 };
 
-let num = document.querySelectorAll(".num");
-for (let i = 1; i < num.length; i++) {
-    num[i].addEventListener('click', () => {
-        window.location.replace("http://dsdas/Kyrsavyia/editbileti.php?id=" + i);
+let num = document.querySelectorAll("td");
+console.log(num);
+for (let i = 1; i < num.length; i += 2) {
+    num[i].addEventListener('click', (event) => {
+
+        window.location.replace("http://dsdas/Kyrsavyia/editotmenreis.php?id=" + +event.target.innerHTML);
+
     });
 }
 
@@ -23,5 +26,5 @@ active();
 const back = document.getElementsByClassName('back')[0];
 
 back.addEventListener('click', () => {
-    window.location.replace("http://dsdas/Kyrsavyia");
+    window.location.replace("http://dsdas/Kyrsavyia/");
 });

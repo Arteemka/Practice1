@@ -1,6 +1,5 @@
 const listEvent = document.getElementsByClassName('content')[0];
 const listEventAdd = document.getElementsByClassName('content_raspisanie')[0];
-const listEventBileti = document.getElementsByClassName('content_bileti')[0];
 const listEventOtdel = document.getElementsByClassName('content_otdel')[0];
 const listEventRab = document.getElementsByClassName('content_rab')[0];
 const listEventBrig = document.getElementsByClassName('content_teh_brig')[0];
@@ -14,13 +13,19 @@ const modal_Shadule_edit = document.getElementsByClassName('shedule')[0];
 const modal_Ticket_edit = document.getElementsByClassName('ticket')[0];
 const modal_Dep_edit = document.getElementsByClassName('department')[0];
 const modal_Worker_edit = document.getElementsByClassName('worker')[0];
+const modal_Cancel_edit = document.getElementsByClassName('cancel')[0];
+const modal_Zade_edit = document.getElementsByClassName('zade')[0];
 const modal_Teh_edit = document.getElementsByClassName('teh_team')[0];
+const modal_Lokomotiv_edit = document.getElementsByClassName('loko')[0];
 const modal_Shaduled_del = document.getElementsByClassName('sheduled')[0];
 const modal_Ticketd_del = document.getElementsByClassName('ticketd')[0];
 const modal_Depd_del = document.getElementsByClassName('departmentd')[0];
 const modal_workerd_del = document.getElementsByClassName('workerd')[0];
 const modal_tehd_del = document.getElementsByClassName('teh_teamd')[0];
 const modal_Shadule_Add = document.getElementsByClassName('modal-add')[0];
+const modal_Loko_del = document.getElementsByClassName('lokod')[0];
+const modal_Otmen_del = document.getElementsByClassName('canceld')[0];
+const modal_Zaderzh_del = document.getElementsByClassName('zaded')[0];
 const zap = document.getElementsByClassName('zap')[0];
 const flights = document.getElementsByClassName('flights')[0];
 const lokomotiv = document.getElementsByClassName('lokomotiv')[0];
@@ -47,16 +52,6 @@ listEventAdd.addEventListener("click", function() {
     }
 });
 
-
-listEventBileti.addEventListener("click", function() {
-    this.classList.toggle("activeBileti");
-    let content = this.nextElementSibling;
-    if (content.style.maxHeight) {
-        content.style.maxHeight = null;
-    } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-    }
-});
 listEventOtdel.addEventListener("click", function() {
     this.classList.toggle("activeOtdel");
     let content = this.nextElementSibling;
@@ -134,6 +129,9 @@ modal_Teh_edit.addEventListener('click', () => {
 modal_Worker_edit.addEventListener('click', () => {
     window.location.replace("http://dsdas/Kyrsavyia/editrab.php");
 });
+modal_Lokomotiv_edit.addEventListener('click', () => {
+    window.location.replace("http://dsdas/Kyrsavyia/lokomotivedit.php");
+});
 
 modal_Shaduled_del.addEventListener('click', () => {
     window.location.replace("http://dsdas/Kyrsavyia/delete.php");
@@ -159,4 +157,21 @@ flights.addEventListener('click', () => {
 
 lokomotiv.addEventListener('click', () => {
     window.location.replace("http://dsdas/Kyrsavyia/lokomotiv.php");
+});
+
+modal_Cancel_edit.addEventListener('click', () => {
+    window.location.replace("http://dsdas/Kyrsavyia/editotmenreis.php");
+});
+modal_Zade_edit.addEventListener('click', () => {
+    window.location.replace("http://dsdas/Kyrsavyia/editzaderzh.php");
+});
+
+modal_Zaderzh_del.addEventListener('click', () => {
+    window.location.replace("http://dsdas/Kyrsavyia/delzader.php");
+});
+modal_Otmen_del.addEventListener('click', () => {
+    window.location.replace("http://dsdas/Kyrsavyia/delotmen.php");
+});
+modal_Loko_del.addEventListener('click', () => {
+    window.location.replace("http://dsdas/Kyrsavyia/delloko.php");
 });

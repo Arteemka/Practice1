@@ -69,57 +69,6 @@ or die("Ошибка " . mysqli_error($link));
 ?>
 
 <?php
-
- 
-if(isset($_POST['send_b'])  ){
- 
-    $host = 'localhost'; // адрес сервера 
-$database = 'railwal_station'; // имя базы данных
-$user = 'root'; // имя пользователя
-$password = '';
- 
-    
-$link = mysqli_connect($host, $user, $password, $database) 
-or die("Ошибка " . mysqli_error($link)); 
-    // экранирования символов для mysql
-  
-    $status_ticket = $_REQUEST['status_bil'];
-    $type_ticket = $_REQUEST['type_bil'];
-    $time_buy = $_REQUEST['vrem_buy'];
-    $fio = $_REQUEST['fio_owner']; 
-    $sex = $_REQUEST['sex'];
-    $age = $_REQUEST['age_ow'];
-    $num = $_REQUEST['nomer_bagazh'];
-    $id = $_REQUEST['id_r'];
-        
-    // создание строки запроса
-    $query ="INSERT INTO bileti (status_bil,
-    type_bil,
-    vrem_buy,
-    fio_owner,
-    sex,
-    age_ow,
-    nomer_bagazh,id_r)" .
-    "VALUES('$status_ticket','$type_ticket ',
-    '$time_buy' ,
-    '$fio ',
-    '$sex ',
-    '$age ',
-    '$num',
-    '$id ' );";
-     
-    // выполняем запрос
-    $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
-    if($result)
-    {
-        echo "<span style='color:blue;'>Данные добавлены</span>";
-        exit('<meta http-equiv="refresh" content="2; url=http://dsdas/Kyrsavyia/index.php" />');
-    }
-    // закрываем подключение
-    mysqli_close($link);
-}
-?>
-<?php
 if(isset($_POST['send_o'])){
  
  $host = 'localhost'; // адрес сервера 
@@ -320,6 +269,8 @@ or die("Ошибка " . mysqli_error($link));
         <button class="worker" type="button">Работник</button>
         <button class="teh_team" type="button">Техническая бригада</button>
         <button class="loko" type="button">Локомотив</button>
+        <button class="cancel" type="button">Отмена рейса</button>
+        <button class="zade" type="button">Задержка рейса</button>
 </div>
 
 <div class="modal_delete">
@@ -328,7 +279,9 @@ or die("Ошибка " . mysqli_error($link));
         <button class="departmentd" type="button">Отдел</button>
         <button class="workerd" type="button">Работник</button>
         <button class="teh_teamd" type="button">Техническая бригада</button>
-        <button class="loko" type="button">Локомотив</button>
+        <button class="lokod" type="button">Локомотив</button>
+        <button class="canceld" type="button">Отмена рейса</button>
+        <button class="zaded" type="button">Задержка рейса</button>
 </div>
 </div>
 <div class="modal-add">
@@ -348,25 +301,20 @@ or die("Ошибка " . mysqli_error($link));
                 <button type="submit"  name = "send" class="div_add raspisanie">Добавить</button>
         </form>
 </div>
-<div class="content_bileti"></div>
-    <div class="block_bileti">
-        <form method="POST">
-                    <input class="input-db" name="status_bil" type="text" placeholder="Статус билета">
-                    <input class="input-db" name="type_bil" type="text" placeholder="Тип билета">
-                    <input class="input-db" name="vrem_buy" type="text" placeholder="Время покупки">
-                    <input class="input-db" name="fio_owner" type="text" placeholder="ФИО Владельца">
-                    <input class="input-db" name="sex" type="text" placeholder="пол">
-                    <input class="input-db" name="age_ow" type="text" placeholder="возраст">
-                    <input class="input-db" name="nomer_bagazh" type="text" placeholder="Номер Багажа">
-                    <input class="input-db" name="id_r" type="text" placeholder="ид расписания">                
-                <button type="submit" name="send_b" class="div_add bileti">Добавить</button>
-        </form>
-</div>
 <div class="content_otdel"></div>
     <div class="block_otdel">
         <form method="POST">
                     <input class="input-db" name="fio_nach_otd" type="text" placeholder="ФИО Начльника">
-                    <input class="input-db" name="name_otd" type="text" placeholder="Имя отдела">                                   
+                    <select name="name_otd" class='otd'>
+                        <option value="" selected="selected">Выбор отдела</option>
+                        <option VALUE="Ремонтный">Ремонтный</option>      
+                        <option VALUE="Локомотивный"> Локомотивный</option>
+                        <option VALUE="Диспетчерский"> Диспетчерский</option> 
+                        <option VALUE="Экономики и финансов"> Экономики и финансов</option> 
+                        <option VALUE="Административный"> Административный</option> 
+                        <option VALUE="Справочная служба"> Справочная служба</option> 
+                        <option VALUE="программного обеспечения"> Программного обеспечения</option>  
+                    </select>                                  
                 <button type="submit" name = "send_o" class="div_add otdelb">Добавить</button>
         </form>
 </div>

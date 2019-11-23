@@ -48,7 +48,7 @@ if(isset($_POST['send_rb']) ){
     date_med='$date_med',
     id_otd='$id_otd',
     id_br='$id_br' WHERE id_rab='$id'";
-     
+     $result = mysql_query($query) or die("Ошибка " . mysql_error($link)); 
     // вы if($result)
         //         echo "<span style='color:blue;'>Данные обновлены</span>";
         //         exit('<meta http-equiv="refresh" content="2; url=http://dsdas/Kyrsavyia/edit.php" />');
@@ -76,9 +76,6 @@ if(isset($_GET['id']))
         $deti  = $row[6];
         $zarp_pl= $row[7];
         $date_med = $row[8];
-        $id_otd= $row[9];
-        $id_br= $row[10];
-
       
         echo "
             <form method='POST' >
@@ -103,12 +100,28 @@ if(isset($_GET['id']))
     <input class='input-db-edit' name='zar_pl' type='text' value='$zar_pl'>
     <label class='label-db count'>Дата медстраховки</label>
     <input class='input-db-edit ' name='date_med' type='text' value='$date_med'> 
-    <label class='label-db otdel'>№ отдела</label>  
-    <input class='input-db-edit' name='id_otd' type='text' value='$id_otd'>  
-    <label class='label-db brig'>№ бригады</label>  
-    <input class='input-db-edit' name='id_br' type='text' value='$id_br'> 
+    <select name='id_otd' class='otd'>
+                        <option value='' selected='selected'>Выбор отдела</option>
+                        <option VALUE='1'>Ремонтный</option>      
+                        <option VALUE='2'> Локомотивный</option>
+                        <option VALUE='3'> Диспетчерский</option> 
+                        <option VALUE='4'> Экономики и финансов</option> 
+                        <option VALUE='5'> Административный</option> 
+                        <option VALUE='6'> Справочная служба</option> 
+                        <option VALUE='7'> Программного обеспечения</option>  
+                    </select>     
+                    <select name='id_br' class='otd'>
+                        <option value='' selected='selected'>Выбор Бригады</option>
+                        <option VALUE='1'>Ремонтный состав</option>      
+                        <option VALUE='2'> Локомотивный состав</option>
+                        <option VALUE='3'> Диспетчерский состав</option> 
+                        <option VALUE='4'>Бугалтерский состав</option> 
+                        <option VALUE='5'> Административный состав</option> 
+                        <option VALUE='6'> Справочная служба состав</option> 
+                        <option VALUE='7'> Прог. обеспечения состав</option>  
+                    </select>   
                
-<button type='submit'  name = 'send_rb' class='editbut'>Редакиторовать</button>
+<button type='submit'  name = 'send_rb' class='editbuttt'>Редакиторовать</button>
             </div>
             </form>
             ";
@@ -149,10 +162,10 @@ if(isset($_GET['id']))
                        Дата <br> медстраховки
                     </th>
                     <th>
-                        ид Отдела 
+                        Отдел
                     </th>
                     <th>
-                        ид Бригады 
+                    Бригада
                     </th>
                 </tr>
 
@@ -181,7 +194,90 @@ if(isset($_GET['id']))
                     $row = mysqli_fetch_row($result);
                    
                     echo "<tr class='num'> ";
-                        for ($j = 1 ; $j < 11 ; ++$j) echo "<td>$row[$j]</td>";
+                        for ($j = 1 ; $j <2; ++$j) 
+                        if($row[9] == 1){
+                            echo "<td>$row[1]</td>";
+                            echo "<td>$row[2]</td>";
+                            echo "<td>$row[3]</td>";
+                            echo "<td>$row[4]</td>";
+                            echo "<td>$row[5]</td>";
+                            echo "<td>$row[6]</td>";
+                            echo "<td>$row[7]</td>";
+                            echo "<td>$row[8]</td>";
+                                echo "<td>Ремонтный</td>";
+                                echo "<td>Ремонтный состав</td>";
+                            } elseif ($row[9] == 2){
+                                echo "<td>$row[1]</td>";
+                            echo "<td>$row[2]</td>";
+                            echo "<td>$row[3]</td>";
+                            echo "<td>$row[4]</td>";
+                            echo "<td>$row[5]</td>";
+                            echo "<td>$row[6]</td>";
+                            echo "<td>$row[7]</td>";
+                            echo "<td>$row[8]</td>";
+                                echo "<td>Локомотивный</td>";
+                                echo "<td>Локомотивный состав</td>";
+                            }elseif ($row[9] == 3){
+                                echo "<td>$row[1]</td>";
+                                echo "<td>$row[2]</td>";
+                                echo "<td>$row[3]</td>";
+                                echo "<td>$row[4]</td>";
+                                echo "<td>$row[5]</td>";
+                                echo "<td>$row[6]</td>";
+                                echo "<td>$row[7]</td>";
+                                echo "<td>$row[8]</td>";
+                                echo "<td>Диспетчерский</td>";
+                                echo "<td>Диспетчерский состав</td>";
+                            }
+                            elseif ($row[9] == 4){
+                                echo "<td>$row[1]</td>";
+                            echo "<td>$row[2]</td>";
+                            echo "<td>$row[3]</td>";
+                            echo "<td>$row[4]</td>";
+                            echo "<td>$row[5]</td>";
+                            echo "<td>$row[6]</td>";
+                            echo "<td>$row[7]</td>";
+                            echo "<td>$row[8]</td>";
+                                echo "<td>Экономики и финансов</td>";
+                                echo "<td>Бугалтерский состав</td>";
+                            }
+                            elseif ($row[9] == 5){
+                                echo "<td>$row[1]</td>";
+                            echo "<td>$row[2]</td>";
+                            echo "<td>$row[3]</td>";
+                            echo "<td>$row[4]</td>";
+                            echo "<td>$row[5]</td>";
+                            echo "<td>$row[6]</td>";
+                            echo "<td>$row[7]</td>";
+                            echo "<td>$row[8]</td>";
+                                echo "<td>Административный</td>";
+                                echo "<td>Административный состав</td>";
+                            }
+                            elseif ($row[9] == 6){
+                                echo "<td>$row[1]</td>";
+                                echo "<td>$row[2]</td>";
+                                echo "<td>$row[3]</td>";
+                                echo "<td>$row[4]</td>";
+                                echo "<td>$row[5]</td>";
+                                echo "<td>$row[6]</td>";
+                                echo "<td>$row[7]</td>";
+                                echo "<td>$row[8]</td>";
+                                echo "<td>Справочная служба</td>";
+                                echo "<td>Справочная служба состав</td>";
+                            }
+                            elseif ($row[9] == 7){
+                                echo "<td>$row[1]</td>";
+                                echo "<td>$row[2]</td>";
+                                echo "<td>$row[3]</td>";
+                                echo "<td>$row[4]</td>";
+                                echo "<td>$row[5]</td>";
+                                echo "<td>$row[6]</td>";
+                                echo "<td>$row[7]</td>";
+                                echo "<td>$row[8]</td>";
+                                echo "<td>Программного обеспечения</td>";
+                                echo "<td>Программного обеспечения состав</td>";
+                            }
+    
                     echo "</a></tr>";
                     
                 }
